@@ -8,7 +8,6 @@ export const Navigation = () => {
     <NavigationContainer>
       <button onClick={() => nav('/')}>To Home</button>
       <button onClick={() => nav('/makeform')}>To MakeForm</button>
-      <button onClick={() => nav('/login')}>To Login</button>
     </NavigationContainer>
   );
 };
