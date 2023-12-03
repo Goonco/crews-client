@@ -86,8 +86,13 @@ export const LoginInput = () => {
         password: pw,
       });
       // 로그인이 성공한 경우
+      console.log(response);
       const accessToken = response.data.access;
       const refreshToken = response.data.refresh;
+      const studentid = response.data.student_number;
+      const name = response.data.name;
+      localStorage.setItem('name', name);
+      localStorage.setItem('studentid', studentid);
       localStorage.setItem('access', accessToken);
       localStorage.setItem('refresh', refreshToken);
       navigate('/');
@@ -102,7 +107,6 @@ export const LoginInput = () => {
       isLoginPending = false;
     }
   };
-  console.log(email);
   return (
     <LoginInputWrapper>
       <form onSubmit={onSubmitHanlder}>

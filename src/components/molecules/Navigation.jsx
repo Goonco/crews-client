@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Flex } from 'components/atoms';
 import basicProfile from './basic-profile.svg';
 import { useEffect, useState } from 'react';
@@ -7,8 +7,10 @@ import { SignIn } from 'pages';
 export const Navigation = () => {
   const nav = useNavigate();
   const [isLogin, setLogin] = useState();
+  const location = useLocation();
   const onClickLogout = () => {
     localStorage.removeItem('access');
+    setLogin(false);
     nav('/');
   };
   const onClickGoHome = () => {
@@ -25,26 +27,18 @@ export const Navigation = () => {
   };
   useEffect(() => {
     const token = localStorage.getItem('access');
+    console.log(1);
     if (token) {
       setLogin(true);
+      console.log(1);
     } else {
       setLogin(false);
+      console.log(1);
     }
-  }, []);
+  }, [location.pathname]);
+  useEffect(() => {}, [isLogin]);
   return (
     <>
-      <NavigationContainer>
-        <button onClick={() => nav('/')}>To Home</button>
-        <button onClick={() => nav('/makeform')}>To MakeForm</button>
-        <button onClick={() => nav('/login')}>To Login</button>
-        <button onClick={() => nav('/makepost')}>To MakePost</button>
-        <button onClick={() => nav('/signin')}>To SignIn</button>
-        <button onClick={() => nav('/evaluate')}>To Evaluate</button>
-        <button onClick={() => nav('/evaluatedetail')}>
-          To EvaluateDetail
-        </button>
-        <button onClick={() => nav('/mypage')}>mypage</button>
-      </NavigationContainer>
       <CrewsNav>
         <CrewsLogo onClick={onClickGoHome}>Crews 🛳️</CrewsLogo>
         <ProfileSection>
@@ -52,7 +46,11 @@ export const Navigation = () => {
             <>
               <ProfileImage src={basicProfile} onClick={onClickMyPage} />
               <Flex direction="column" align="flex-start">
-                <UserName>20201148 정인영</UserName>
+                <UserName>
+                  {localStorage.getItem('studentid') +
+                    ' ' +
+                    localStorage.getItem('name')}
+                </UserName>
                 <LogoutButton onClick={onClickLogout}>로그아웃</LogoutButton>
               </Flex>{' '}
             </>

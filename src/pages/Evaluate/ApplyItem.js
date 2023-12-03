@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import selectRadio from './select.svg';
+import { useNavigate } from 'react-router-dom';
 function ApplyItem({}) {
   const [isSelected, setIsSelcted] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -11,6 +12,10 @@ function ApplyItem({}) {
       return;
     }
     setIsActive(!isActive);
+  };
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate('/evaluatedetail');
   };
   return (
     <ApplyItemContainer>
@@ -39,23 +44,25 @@ function ApplyItem({}) {
             <score>4.4</score>
           </StaffEvaluationItem>
           <StaffEvaluationItem>
-            <name>윤태호</name>
-            <score>4.4</score>
+            <name>한우석</name>
+            <score>4.9</score>
           </StaffEvaluationItem>
           <StaffEvaluationItem>
-            <name>윤태호</name>
-            <score>4.4</score>
+            <name>정지우</name>
+            <score>4.0</score>
           </StaffEvaluationItem>
           <StaffEvaluationItem>
-            <name>윤태호</name>
-            <score>4.4</score>
+            <name>진민석</name>
+            <score>4.1</score>
           </StaffEvaluationItem>
           <StaffEvaluationItem>
-            <name>윤태호</name>
-            <score>4.4</score>
+            <name>박채린</name>
+            <score>4.2</score>
           </StaffEvaluationItem>
 
-          <CheckApplicationButton>지원서 확인하기</CheckApplicationButton>
+          <CheckApplicationButton onClick={onClick}>
+            지원서 확인하기
+          </CheckApplicationButton>
         </ActiveApplyItem>
       ) : (
         <UnActivateApplyItem onClick={handleClickItem} $isSelected={isSelected}>

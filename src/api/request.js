@@ -32,7 +32,6 @@ export const loginRequest = {
   loginPost: 'accounts/login/',
 };
 
-
 export const signInRequest = {
   mailCheck: '/accounts/sogang-mail-check/',
   verify: '/accounts/verification-code-check/',
@@ -40,5 +39,5 @@ export const signInRequest = {
 };
 export const applyAppPageRequest = {
   // Post : 지원서 생성 요청
-  applyApplication: 'apply/application',
+  applyApplication: '/apply/application/',
 };

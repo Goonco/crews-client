@@ -15,7 +15,7 @@ function MyProfileSection() {
   const [isOperator, setIsOperator] = useState(true);
   const [profileText, setProfileText] = useState({
     name: '',
-    email: 'ceos@naver.com',
+    email: '',
     major: [],
     description: '',
     oneLiner: '',

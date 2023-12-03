@@ -94,6 +94,7 @@ const CrewImage = styled.div`
 `;
 const OverlayText = styled.div`
   font-size: 14px;
+  margin-top: 20px;
   display: flex;
   text-align: center;
   font-family: Pretendard;

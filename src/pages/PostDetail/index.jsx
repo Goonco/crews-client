@@ -19,6 +19,7 @@ export const PostDetail = () => {
   const [countLikes, setCountLikes] = useState();
   const [recruitmentData, setRecruitmentData] = useState(null);
   const [crewData, setCrewData] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
   const params = useParams();
   const convertData = (str) => {
     // dayjs 사용해서
@@ -74,6 +75,8 @@ export const PostDetail = () => {
             },
           }),
         ]);
+
+        console.log(postResponse);
         setCountLikes(postResponse.data.total_likes);
         setRecruitmentData({
           ...postResponse.data,
@@ -88,13 +91,16 @@ export const PostDetail = () => {
           interview_end_date: convertData(postResponse.data.interview_end_date),
           final_result_date: convertData(postResponse.data.final_result_date),
         });
-
-        setCrewData(crewResponse.data);
+        setImageUrl(postResponse.data.image[0]);
+        setCrewData({
+          crew_name: crewResponse.data.crew.crew_name,
+          category: crewResponse.data.crew.crew_category,
+          crew_description: crewResponse.data.crew.description,
+        });
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, [params.postid]);
 
@@ -123,7 +129,7 @@ export const PostDetail = () => {
           </Text>
         </Title>
         <Space height="40px" />
-        <Image src={postImage}></Image>
+        <Image src={imageUrl}></Image>
         <Space height="40px" />
         <Content>
           <Flex direction="column" align="start">

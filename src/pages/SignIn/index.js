@@ -127,8 +127,10 @@ export const SignIn = () => {
   };
   const 회원가입끝 = async () => {
     try {
+      console.log(form);
       await instance.post(`${signInRequest.register}`, {
         email: form.id,
+        password: form.pw,
         name: form.name,
         sogang_mail: form.sogangemail,
         student_number: form.studentid,
@@ -138,6 +140,7 @@ export const SignIn = () => {
       });
       navigate('/');
     } catch (err) {
+      console.log(err);
       alert('필수 항목을 모두 작성해주세요!');
     }
   };
@@ -173,7 +176,7 @@ export const SignIn = () => {
       return () => clearInterval(intervalId);
     }
   }, []);
-
+  console.log(form);
   return (
     <SigninWrapper>
       <Space height={'60px'} />

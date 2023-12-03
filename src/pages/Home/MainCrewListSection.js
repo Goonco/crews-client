@@ -45,7 +45,7 @@ function MainCrewListSection() {
   useEffect(() => {
     fetchData();
   }, []);
-
+  console.log(postData);
   const fetchData = async () => {
     // 로그인했을 경우
     try {

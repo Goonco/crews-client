@@ -11,6 +11,7 @@ import { instance } from 'api/axios';
 import { applyPostPageRequest } from 'api/request';
 import { useRecoilValue } from 'recoil';
 import { intPlanAtom } from './atom';
+import { useNavigate } from 'react-router-dom';
 
 export const MakePost = () => {
   // 백엔드로 전달할 상태관리변수
@@ -49,9 +50,11 @@ export const MakePost = () => {
     }
   }, []);
 
-  const onClickPostFormData = () => {
+  const navigate = useNavigate();
+
+  const onClickPostFormData = async () => {
     // crew 같은 경우는 라우팅할 때 동아리 id를 설정, 토큰은 일단 예시로
-    instance.post(
+    const res = await instance.post(
       applyPostPageRequest.applyPost,
       {
         title: form.title,
@@ -73,6 +76,8 @@ export const MakePost = () => {
           'Beader eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzAwNDg4MTEzLCJpYXQiOjE3MDA0ODQ1MTMsImp0aSI6IjIyNjg0ZTg4YmIzZjQ2ZGViMTlmZmY1ZjM4NTQzZjRlIiwidXNlcl9pZCI6M30.VKLfT5AQxXvXw-PmRdY1hRBRuc7zFVP3RBNHEFBbS9Q',
       }
     );
+
+    navigate(`/${res.data.id}`);
   };
 
   return (

@@ -14,11 +14,13 @@ import MakeFormHeader from './MakeFormHeader';
 import LoadingPage from './LoadingPage';
 import { Space, Button, Text } from 'components/atoms';
 import { useState } from 'react';
+import { useParams } from 'react-router';
 
 export const MakeForm = () => {
   const [loading, setLoading] = useState(0);
   const { sectionData, addSection } = useSection();
   const { questionData } = useQuestion();
+  const { postid } = useParams();
 
   const handleMakeFormClick = async () => {
     for (const section of sectionData) {
@@ -44,20 +46,23 @@ export const MakeForm = () => {
         });
 
       const body = {
-        // post_id
+        post_id: Number(postid),
         section_name: section.sectionName,
         description: section.sectionDescription,
         question: questions,
       };
 
       setLoading((prev) => prev + 1);
-
-      console.log(body);
-      // await instance.post(`${applyAppPageRequest.applyApplication}`, body, {
-      //   headers: {
-      //     Authorization: `Bearer ${localStorage.getItem('access')}`,
-      //   },
-      // });
+      console.log({ ...body });
+      await instance.post(
+        `${applyAppPageRequest.applyApplication}`,
+        { ...body },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`,
+          },
+        }
+      );
       setLoading((prev) => prev - 1);
     }
   };

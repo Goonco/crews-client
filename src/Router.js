@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import { Navigation } from 'components/molecules';
 import { Header } from 'components/molecules';
 import {
   MakeForm,
@@ -16,15 +15,15 @@ import MainCrewListSection from 'pages/Home/MainCrewListSection';
 import MainPopularSection from 'pages/Home/MainPopularSection';
 import MainHowToUseSection from 'pages/Home/MainHowToUseSection';
 import MainCollaborateSection from 'pages/Home/MainCollaborateSection';
-
+import { Navigation } from 'components/molecules/Navigation';
 const Router = () => {
   return (
     <>
-      <Header />
+      <Navigation />
       <Routes>
-        <Route path="/makeform" element={<MakeForm />} />
+        <Route path="/makeform/:postid" element={<MakeForm />} />
         <Route path="/signin" element={<SignIn />} />
-        <Route path="/makepost/:postid" element={<MakePost />} />
+        <Route path="/makepost" element={<MakePost />} />
         <Route path="/login" element={<Login />} />
         <Route path="/postdetail/:postid" element={<PostDetail />} />
         <Route path="/evaluate" element={<Evaluate />} />
