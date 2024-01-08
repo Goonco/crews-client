@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import { Header } from 'components/molecules';
 import {
-  MakeForm,
+  MakeFormPage,
+  WriteFormPage,
   MakePost,
   Login,
   SignIn,
@@ -21,7 +22,8 @@ const Router = () => {
     <>
       <Navigation />
       <Routes>
-        <Route path="/makeform/:postid" element={<MakeForm />} />
+        <Route path="/makeform" element={<MakeFormPage />} />
+        <Route path="/writeform" element={<WriteFormPage />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/makepost" element={<MakePost />} />
         <Route path="/login" element={<Login />} />

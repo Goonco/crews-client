@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import useQuestion from '../useQuestion';
+import useQuestion from '../hooks/useQuestion';
 
 // Imported Functions & Datas
 import { G02, W01, BK01, B04 } from 'style/palette';
 
 // Imported Components
-import QuestionTypeBox from './QuestionTypeBox';
+import QuestionHeader from './QuestionHeader';
 import CheckBoxQues from './CheckBoxQues';
 import DescriptiveQues from './DescriptiveQues';
 
@@ -16,7 +16,7 @@ const QuestionBox = ({ questionData, idx }) => {
 
   return (
     <>
-      <QuestionTypeBox questionType={questionType} idx={idx} />
+      <QuestionHeader questionType={questionType} idx={idx} />
       <QuestionBoxContainer>
         <QuestionDescription
           name="questionDescription"

@@ -2,7 +2,7 @@ import {
   questionDataAtom,
   DEFAULT_CHECKBOX_DATA,
   DEFAULT_DESCRIPTIVE_DATA,
-} from './FormAtom';
+} from './MakeFormAtom';
 import { useRecoilState } from 'recoil';
 
 const useQuestion = () => {
@@ -71,7 +71,7 @@ const useQuestion = () => {
   const addOption = (idxToAdd) => {
     const newQuestionData = questionData.map((ques, idx) => {
       if (idx === idxToAdd) {
-        const newId = ques.options[ques.options.length - 1] + 1;
+        const newId = ques.options.length;
         return {
           ...ques,
           options: [...ques.options, { id: newId, option: '' }],

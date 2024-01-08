@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import useQuestion from '../useQuestion';
+import useQuestion from '../hooks/useQuestion';
 
 import { W01, G02, G06, B05 } from 'style/palette';
 import {
   faCircleCheck,
   faFont,
   faFolder,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
-const QuestionTypeBox = ({ questionType, idx }) => {
+const QuestionHeader = ({ questionType, idx }) => {
   const { changeType, deleteQuestion } = useQuestion();
 
   return (
@@ -34,7 +34,7 @@ const QuestionTypeBox = ({ questionType, idx }) => {
       />
       <TypeButton
         className={'fa-xl'}
-        children={<FontAwesomeIcon icon={faTrashCan} />}
+        children={<FontAwesomeIcon icon={faXmark} />}
         onClick={() => deleteQuestion(idx)}
       />
     </QuestionTypeBoxContainer>
@@ -68,4 +68,4 @@ const TypeButton = styled.button`
   }
 `;
 
-export default QuestionTypeBox;
+export default QuestionHeader;

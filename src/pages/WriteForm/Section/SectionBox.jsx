@@ -1,19 +1,17 @@
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 // Imported Functions & Datas
 import { B01, B04 } from 'style/palette';
-import useQuestion from '../hooks/useQuestion';
+import { questionDataAtom } from '../hooks/WriteFormAtom';
 
 // Imported Components
-import { Button } from 'components/atoms';
 import SectionHeader from './SectionHeader';
 import QuestionBox from '../Question/QuestionBox';
 
 const SectionBox = ({ sectionData, idx }) => {
   const { id, sectionName, sectionDescription } = { ...sectionData };
-  const { questionData, addQuestion } = useQuestion();
-
-  const handleAddQuestionClick = () => addQuestion(sectionData.id);
+  const questionData = useRecoilValue(questionDataAtom);
 
   return (
     <SectionContainer>
@@ -23,14 +21,6 @@ const SectionBox = ({ sectionData, idx }) => {
           if (ques.sectionId === id)
             return <QuestionBox questionData={ques} idx={idx} />;
         })}
-
-        <QuestionAddButton
-          width="120px"
-          height="50px"
-          fontSize="18px"
-          children="질문 추가"
-          onClick={handleAddQuestionClick}
-        />
       </SectionContent>
     </SectionContainer>
   );
@@ -46,10 +36,10 @@ const SectionContainer = styled.div`
 
 const SectionContent = styled.div`
   padding: 20px;
-`;
 
-const QuestionAddButton = styled(Button)`
-  background-color: ${B04};
+  & div:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 export default SectionBox;

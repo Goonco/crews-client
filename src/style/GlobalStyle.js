@@ -20,8 +20,11 @@ const GlobalStyle = createGlobalStyle`
         outline: none;
         background: none;
     }
-    
-    a{
+    textarea {
+        resize: none;
+        outline: none;
+    }
+    a {
         text-decoration:none;
         outline:none;
     }
