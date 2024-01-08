@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { G06 } from 'style/palette';
 
-import useQuestion from '../useQuestion';
+import useQuestion from '../hooks/useQuestion';
 
 import ToggleButton from './ToggleButton';
 import { Text } from 'components/atoms';
@@ -13,27 +13,25 @@ const DescriptiveQues = ({ questionData, idx }) => {
   const handleOnClick = (e) => changeQuestion(e, idx);
 
   return (
-    <>
-      <ToggleButtonContainer>
-        <ToggleButton
-          name="isMandatory"
-          status={isMandatory}
-          onClick={handleOnClick}
-          label="응답 필수"
-        />
+    <ToggleButtonContainer>
+      <ToggleButton
+        name="isMandatory"
+        status={isMandatory}
+        onClick={handleOnClick}
+        label="응답 필수"
+      />
 
-        <label>
-          <Text size="14px" color={G06} children="글자 수" />
-          <NumberInput
-            name="characterLimit"
-            type="text"
-            value={characterLimit}
-            onChange={handleOnClick}
-          />
-          <Text size="14px" color={G06} children="자 제한" />
-        </label>
-      </ToggleButtonContainer>
-    </>
+      <label>
+        <Text size="14px" color={G06} children="글자 수" />
+        <NumberInput
+          name="characterLimit"
+          type="text"
+          value={characterLimit}
+          onChange={handleOnClick}
+        />
+        <Text size="14px" color={G06} children="자 제한" />
+      </label>
+    </ToggleButtonContainer>
   );
 };
 

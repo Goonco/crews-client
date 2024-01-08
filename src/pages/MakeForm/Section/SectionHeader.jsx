@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useSection from '../useSection';
+import useSection from '../hooks/useSection';
 
 // Imported Functions & Datas
 import { B04, W01, B03 } from 'style/palette';

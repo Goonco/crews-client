@@ -1,4 +1,4 @@
-import { sectionDataAtom, questionDataAtom } from './FormAtom';
+import { sectionDataAtom, questionDataAtom } from './MakeFormAtom';
 import { useRecoilState } from 'recoil';
 
 const generateRandomString = () => {

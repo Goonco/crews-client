@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useQuestion from '../useQuestion';
+import useQuestion from '../hooks/useQuestion';
 
 import { BK01, G03, G05 } from 'style/palette';
 import { faXmark, faPlus } from '@fortawesome/free-solid-svg-icons';

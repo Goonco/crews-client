@@ -10,14 +10,12 @@ const handleQuestionClick = () => {
   alert('설명창 미구현');
 };
 
-const MakeFormHeader = () => {
+const WriteFormHeader = () => {
   return (
-    <MakeFormHeaderContainer>
+    <WriteFormHeaderContainer>
       <Flex justify="left" align="center" gap="12">
-        <Text children="STEP 02" size="28px" weight="bold" color={BK02} />
-        <TextLine color={G05} size="22px" />
         <Text
-          children="지원서 양식 작성"
+          children="지원서 작성하기"
           size="28px"
           weight="bold"
           color={BK02}
@@ -38,11 +36,11 @@ const MakeFormHeader = () => {
         weight="400"
         color={G05}
       />
-    </MakeFormHeaderContainer>
+    </WriteFormHeaderContainer>
   );
 };
 
-const MakeFormHeaderContainer = styled.div`
+const WriteFormHeaderContainer = styled.div`
   margin: 40px 0;
   text-align: left;
 `;
@@ -54,10 +52,4 @@ const QuestionButton = styled.button`
   }
 `;
 
-const TextLine = styled.span`
-  border: 2px solid ${({ color }) => color};
-  border-radius: 999px;
-  height: ${({ size }) => size};
-`;
-
-export default MakeFormHeader;
+export default WriteFormHeader;
