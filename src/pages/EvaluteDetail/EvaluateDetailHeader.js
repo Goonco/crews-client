@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import backArrowIcon from './backArrow.svg';
 import beforeArrowIcon from './beforeArrow.svg';
 import nextArrowIcon from './nextArrow.svg';
-import { EvaluateH1 } from 'pages/Evaluate/EvaluateSummarySection';
+
 function EvaluateDetailHeader() {
   return (
     <EvaluateDetailHeaderWrapper>
@@ -54,6 +54,16 @@ const IndexState = styled.div`
   margin-top: 4px;
   color: var(--black-bk-02, #101010);
   font-size: 28px;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.56px;
+`;
+
+const EvaluateH1 = styled.div`
+  color: var(--black-bk-02, #101010);
+  font-family: Pretendard;
+  font-size: 28px;
+  font-style: normal;
   font-weight: 700;
   line-height: normal;
   letter-spacing: -0.56px;
