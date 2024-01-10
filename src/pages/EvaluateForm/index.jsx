@@ -2,27 +2,26 @@ import styled from 'styled-components';
 
 import EvaluateSummarySection from './EvaluateSummarySection';
 import ApplyListSection from './ApplyList/ApplyListSection';
-import ConfirmBar from './BottomBar';
+import ConfirmBar from './ConfirmBar';
 
 export const EvaluateFormPage = () => {
   return (
-    <EvaluationFormPageWrapper>
+    <EvaluationPageWrapper>
       <EvaluationContentContainer>
         <EvaluateSummarySection />
         <ApplyListSection />
       </EvaluationContentContainer>
 
       <ConfirmBar />
-    </EvaluationFormPageWrapper>
+    </EvaluationPageWrapper>
   );
 };
 
-const EvaluationFormPageWrapper = styled.div`
+export const EvaluationPageWrapper = styled.div`
   width: 100%;
 `;
 
-const EvaluationContentContainer = styled.div`
-  width: 1100px;
+export const EvaluationContentContainer = styled.div`
+  width: 1200px;
   margin: 0 auto;
-  padding: 40px 0 180px;
 `;

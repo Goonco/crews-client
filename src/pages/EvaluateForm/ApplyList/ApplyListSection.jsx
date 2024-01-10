@@ -72,6 +72,8 @@ const SortMenu = styled.ul`
 
 const SortOption = styled.li``;
 
-const ApplyListSectionWrapper = styled.section``;
+const ApplyListSectionWrapper = styled.section`
+  margin-bottom: 180px;
+`;
 
 export default ApplyListSection;

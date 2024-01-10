@@ -48,6 +48,7 @@ function EvaluateSummarySection() {
 export default EvaluateSummarySection;
 
 const EvalutateSummarySectionWrapper = styled.section`
+  padding: 40px 0;
   text-align: left;
 `;
 
@@ -58,7 +59,7 @@ const EvaluateHeader = styled(Text)`
 
 const InformationBoard = styled.div`
   width: fit-content;
-  margin: 40px auto;
+  margin: 40px auto 0;
   padding: 25px 145px;
   border-radius: 10px;
   background: ${B01};

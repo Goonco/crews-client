@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { B02, B05 } from 'style/palette';
+import { B02 } from 'style/palette';
 
 import { Button } from 'components/atoms';
 

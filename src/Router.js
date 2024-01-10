@@ -7,7 +7,7 @@ import {
   MakePost,
   Login,
   SignIn,
-  EvaluateDetail,
+  EvaluateDetailPage,
   MyPage,
   PostDetail,
 } from 'pages';
@@ -25,7 +25,7 @@ const Router = () => {
         <Route path="/makeform" element={<MakeFormPage />} />
         <Route path="/writeform" element={<WriteFormPage />} />
         <Route path="/evaluateform" element={<EvaluateFormPage />} />
-        <Route path="/evaluatedetail" element={<EvaluateDetail />} />
+        <Route path="/evaluatedetail" element={<EvaluateDetailPage />} />
 
         <Route path="/signin" element={<SignIn />} />
         <Route path="/makepost" element={<MakePost />} />
