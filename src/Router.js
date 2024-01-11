@@ -3,11 +3,11 @@ import { Header } from 'components/molecules';
 import {
   MakeFormPage,
   WriteFormPage,
+  EvaluateFormPage,
   MakePost,
   Login,
   SignIn,
-  Evaluate,
-  EvaluateDetail,
+  EvaluateDetailPage,
   MyPage,
   PostDetail,
 } from 'pages';
@@ -24,12 +24,13 @@ const Router = () => {
       <Routes>
         <Route path="/makeform" element={<MakeFormPage />} />
         <Route path="/writeform" element={<WriteFormPage />} />
+        <Route path="/evaluateform" element={<EvaluateFormPage />} />
+        <Route path="/evaluatedetail" element={<EvaluateDetailPage />} />
+
         <Route path="/signin" element={<SignIn />} />
         <Route path="/makepost" element={<MakePost />} />
         <Route path="/login" element={<Login />} />
         <Route path="/postdetail/:postid" element={<PostDetail />} />
-        <Route path="/evaluate" element={<Evaluate />} />
-        <Route path="/evaluatedetail" element={<EvaluateDetail />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/" element={<Home />}>
           <Route path="" element={<MainCrewListSection />}></Route>

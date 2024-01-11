@@ -1,25 +1,22 @@
-import { Flex } from 'components/atoms';
-import ApplicationSection from './ApplicationSection';
+import { EvaluationPageWrapper, EvaluationContentContainer } from 'pages';
+import FormSection from './FormSection';
 import AssessSection from './AssessSection';
 import EvaluateDetailHeader from './EvaluateDetailHeader';
-import BottomBar from 'pages/Evaluate/BottomBar';
-import React from 'react';
-import styled from 'styled-components';
-export const EvaluateDetail = () => {
+import ConfrimBar from 'pages/EvaluateForm/ConfirmBar';
+import { Flex } from 'components/atoms';
+
+export const EvaluateDetailPage = () => {
   return (
-    <>
-      <EvaluateDetailContainer>
+    <EvaluationPageWrapper>
+      <EvaluationContentContainer>
         <EvaluateDetailHeader />
-        <ApplicationSection />
-        <AssessSection />
-      </EvaluateDetailContainer>
-      <BottomBar />
-    </>
+        <Flex justify="space-between" align="flex-start">
+          <FormSection />
+          <AssessSection />
+        </Flex>
+      </EvaluationContentContainer>
+
+      <ConfrimBar />
+    </EvaluationPageWrapper>
   );
 };
-
-const EvaluateDetailContainer = styled.div`
-  width: 1200px;
-  margin: 0 auto;
-  position: relative;
-`;

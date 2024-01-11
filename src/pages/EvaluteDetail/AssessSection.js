@@ -1,162 +1,137 @@
-import React, { useState } from 'react';
 import styled from 'styled-components';
-function AssessSection() {
-  const [text, setText] = useState({ score: '', oneLiner: '' });
-  const { score, oneLiner } = text;
-  const onTextFieldChange = (e) => {
-    setText({ ...text, [e.target.name]: e.target.value });
-  };
 
+import { Flex, Text } from 'components/atoms';
+import { B05, BK01, BK02, G03, G04, G05, W01 } from 'style/palette';
+
+const dummy = [
+  {
+    name: '김뭐뭐',
+    comment: '3 / 나쁘지 않은듯',
+  },
+  {
+    name: '송뭐뭐',
+    comment: '4 / 좋은듯?',
+  },
+  {
+    name: '이뭐뭐',
+    comment: '2 / 난좀 별로...',
+  },
+  {
+    name: '박뭐뭐',
+    comment: '5 / 최고다 최고!!',
+  },
+];
+
+const AssessSection = () => {
   return (
-    <AssessTotalSection>
-      <AssessSectionWrapper>
-        <AssessWidthContainer>
-          <AverageScore>
-            <div className="average-label">평균 점수</div>
-            <div className="average-score">4.4 (상위 10%)</div>
-          </AverageScore>
-          <CommentList>
-            <CommentItem>
-              <div className="author">정고은</div>
-              <div className="score-comment">4 / 인영이 좀 치네</div>
-            </CommentItem>{' '}
-            <CommentItem>
-              <div className="author">한우석</div>
-              <div className="score-comment">4 / 인영이 좀 치네</div>
-            </CommentItem>{' '}
-            <CommentItem>
-              <div className="author">한우석</div>
-              <div className="score-comment">4 / 인영이 좀 치네</div>
-            </CommentItem>{' '}
-            <CommentItem>
-              <div className="author">한우석</div>
-              <div className="score-comment">4 / 인영이 좀 치네</div>
+    <AssessContainer>
+      <Flex justify="space-between">
+        <Text color={BK02} size="22px" weight={700} children="평균 점수" />
+        <Text color={B05} size="22px" weight={700} children="4.4 (상위 10%)" />
+      </Flex>
+
+      <Line />
+
+      <CommentTable>
+        {dummy.map((it, idx) => (
+          <CommentRow>
+            <CommentItem className="author">
+              <Text size="16px" weight={400} color={G05} children={it.name} />
             </CommentItem>
-            <CommentItem>
-              <div className="author">한우석</div>
-              <div className="score-comment">4 / 인영이 좀 치네</div>
+            <CommentItem className="comment">
+              <Text
+                size="18px"
+                weight={500}
+                color={BK01}
+                children={it.comment}
+              />
             </CommentItem>
-          </CommentList>
-          <MyScore>
-            <div className="label">내 점수</div>
-            <div className="description">최대 5점</div>
-          </MyScore>
-          <ScoreInput onChange={onTextFieldChange} value={score} />
-          <MyAssess>
-            <div className="label">나의 한 줄 평가</div>
-            <div className="description">글자 수 (0/200)</div>
-          </MyAssess>
-          <OneLinerInput onChange={onTextFieldChange} value={oneLiner} />
-          <ButtonContainer>
-            <ReviseAssessButton>내 평가 수정하기</ReviseAssessButton>
-            <FirstPassButton>1차 합격 시키기</FirstPassButton>
-          </ButtonContainer>
-        </AssessWidthContainer>
-      </AssessSectionWrapper>
-    </AssessTotalSection>
+          </CommentRow>
+        ))}
+      </CommentTable>
+
+      <Line />
+
+      <Flex justify="begin" gap={10}>
+        <Text size="18px" weight={700} color={BK01} children="내 점수" />
+        <Text size="14px" weight={400} color={G05} children="최대 5점" />
+      </Flex>
+      <CommentInput height="60px" placeholder="숫자를 입력해주세요." />
+      <Flex justify="begin" gap={10}>
+        <Text
+          size="18px"
+          weight={700}
+          color={BK01}
+          children="나의 한 줄 평가"
+        />
+        <Text size="14px" weight={400} color={G05} children="글자 수 (0/200)" />
+      </Flex>
+      <CommentInput
+        height="130px"
+        placeholder="지원서에 대한 코멘트를 남겨주세요."
+      />
+
+      <ButtonContainer>
+        <ReviseAssessButton>내 평가 수정하기</ReviseAssessButton>
+        <FirstPassButton>1차 합격 시키기</FirstPassButton>
+      </ButtonContainer>
+    </AssessContainer>
   );
-}
+};
 
-const AssessTotalSection = styled.section`
-  position: absolute;
-  top: 110px;
-  right: 0px;
-`;
-
-const AssessSectionWrapper = styled.div`
+const AssessContainer = styled.section`
+  padding: 20px;
   width: 360px;
-  height: 762px;
+  height: fit-content;
   border-radius: 10px;
-  background: #f7f7f7;
+  background-color: #f7f7f7;
 `;
 
-const AssessWidthContainer = styled.div`
-  width: 80%;
-  margin 0 auto;
+const Line = styled.span`
+  display: block;
+  margin: 20px 0;
+
+  border-top: 1px solid ${G03};
 `;
 
-const AverageScore = styled.div`
-  display: flex;
-  height: 68px;
-  align-items: center;
-  .average-label {
-    color: #101010;
-    font-size: 22px;
-    font-weight: 700;
-    line-height: normal;
-  }
-  .average-score {
-    margin-left: auto;
-    color: var(--blue-b-05-m, #3172ea);
-    font-size: 22px;
-    font-weight: 700;
-    line-height: normal;
-  }
-`;
-
-const CommentList = styled.div`
+const CommentTable = styled.table`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  padding: 20px 0px;
 `;
-const CommentItem = styled.div`
+
+const CommentRow = styled.tr`
   display: flex;
   align-items: center;
-  gap: 12px;
-  .author {
-    color: var(--gray-g-05, #999);
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: -0.32px;
-  }
+`;
 
-  .score-comment {
-    color: var(--black-bk-01, #303030);
-    font-family: Pretendard;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.36px;
+const CommentItem = styled.td`
+  &.author {
+    width: 45px;
+    margin-right: 10px;
+  }
+  &.comment {
   }
 `;
 
-const MyScore = styled.div`
-  display: flex;
-  gap: 8px;
-  margin-top: 24px;
-  margin-bottom: 16px;
-  align-items: center;
-  .label {
-    color: #101010;
-    font-size: 18px;
-    font-weight: 700;
-  }
-  .description {
-    color: var(--gray-g-05, #999);
-    font-size: 14px;
-    font-weight: 400;
-  }
-`;
-
-const ScoreInput = styled.input.attrs(() => ({ name: 'score' }))`
-  border-radius: 10px;
-  border: 1px solid var(--gray-g-04, #b3b3b3);
-  background: #fff;
+const CommentInput = styled.textarea`
+  margin: 16px 0;
   width: 100%;
-  height: 61px;
-`;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  height: ${({ height }) => height};
 
-const OneLinerInput = styled(ScoreInput).attrs(() => ({ name: 'oneLiner' }))`
-  height: 130px;
+  font-family: 'Pretendard-Regular';
+  font-size: 16px;
+  font-weight: 400;
+  color: ${BK02};
+  background-color: ${W01};
+
+  &::placeholder {
+    color: ${G04};
+  }
 `;
-const MyAssess = styled(MyScore)``;
 
 const ButtonContainer = styled.div`
   margin-top: 24px;

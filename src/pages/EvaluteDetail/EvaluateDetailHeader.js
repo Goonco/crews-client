@@ -1,62 +1,47 @@
-import React from 'react';
 import styled from 'styled-components';
-import backArrowIcon from './backArrow.svg';
-import beforeArrowIcon from './beforeArrow.svg';
-import nextArrowIcon from './nextArrow.svg';
-import { EvaluateH1 } from 'pages/Evaluate/EvaluateSummarySection';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { BK02 } from 'style/palette';
+import {
+  faChevronLeft,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
+
+import { Text } from 'components/atoms';
+
 function EvaluateDetailHeader() {
   return (
     <EvaluateDetailHeaderWrapper>
-      <EvaluateH1>20201148 정인영 님의 지원서</EvaluateH1>
-      <BackArrowIcon src={backArrowIcon} />
-      <EvaluatePagenation>
-        <BeforeButton src={beforeArrowIcon} />
-        <IndexState>01 / 48</IndexState>
-        <AfterButton src={nextArrowIcon} />
-      </EvaluatePagenation>
+      <Text
+        size="28px"
+        weight={700}
+        color={BK02}
+        children="20201148 정인영 님의 지원서"
+      />
+      <PagenationBox>
+        <FontAwesomeIcon icon={faChevronLeft} />
+        <Text size="28px" weight={700} children="01 / 48" />
+        <FontAwesomeIcon icon={faChevronRight} />
+      </PagenationBox>
     </EvaluateDetailHeaderWrapper>
   );
 }
 
 const EvaluateDetailHeaderWrapper = styled.div`
-  position: sticky;
-  top: 0px;
   display: flex;
   align-items: center;
-  background-color: white;
-  height: 113px;
+  justify-content: space-between;
+
   width: 100%;
-
-  z-index: 3;
+  margin: 40px 0;
 `;
 
-const EvaluatePagenation = styled.div`
-  margin-left: auto;
+const PagenationBox = styled.div`
   display: flex;
-  gap: 8px;
   align-items: center;
-`;
+  gap: 8px;
 
-const BeforeButton = styled.img`
-  cursor: pointer;
-`;
-const AfterButton = styled.img`
-  cursor: pointer;
-`;
-
-const BackArrowIcon = styled.img`
-  cursor: pointer;
-  position: absolute;
-  top: 43px;
-  left: -46px;
-`;
-const IndexState = styled.div`
-  margin-top: 4px;
-  color: var(--black-bk-02, #101010);
-  font-size: 28px;
-  font-weight: 700;
-  line-height: normal;
-  letter-spacing: -0.56px;
+  color: ${BK02};
 `;
 
 export default EvaluateDetailHeader;

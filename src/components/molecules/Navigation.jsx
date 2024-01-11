@@ -27,13 +27,13 @@ export const Navigation = () => {
   };
   useEffect(() => {
     const token = localStorage.getItem('access');
-    console.log(1);
+    // console.log(1);
     if (token) {
       setLogin(true);
-      console.log(1);
+      // console.log(1);
     } else {
       setLogin(false);
-      console.log(1);
+      // console.log(1);
     }
   }, [location.pathname]);
   useEffect(() => {}, [isLogin]);
