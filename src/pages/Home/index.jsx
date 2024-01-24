@@ -4,8 +4,8 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import IntroSection from './IntroSection';
 import { Space } from 'components/atoms';
 import MainCrewListSection from './MainCrewListSection';
-import { instance } from 'api/axios';
-import { homePageRequest } from 'api/request';
+import { instance } from 'apis/axios';
+import { homePageRequest } from 'apis/request';
 export const Home = () => {
   const [isActive, setIsActive] = useState({
     list: false,
@@ -26,7 +26,6 @@ export const Home = () => {
       setIsActive({ list: false, popular: false, how: false, crews: true });
     }
   }, [pathname]);
-
 
   return (
     <HomeContainer>

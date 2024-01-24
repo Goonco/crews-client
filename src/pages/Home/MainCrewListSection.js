@@ -4,8 +4,8 @@ import { Space } from 'components/atoms';
 import searchIcon from './search.svg';
 import arrowUpIcon from './arrowUpICon.svg';
 import MainCrewCard from './MainCrewCard';
-import { instance } from 'api/axios';
-import { homePageRequest } from 'api/request';
+import { instance } from 'apis/axios';
+import { homePageRequest } from 'apis/request';
 import { useNavigate } from 'react-router-dom';
 function MainCrewListSection() {
   const [searchInput, setSearchInput] = useState('');

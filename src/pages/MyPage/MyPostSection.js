@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import PostItem from './PostItem';
-import { instance } from 'api/axios';
-import { myPageRequest } from 'api/request';
+import { instance } from 'apis/axios';
+import { myPageRequest } from 'apis/request';
 function MyPostSection() {
   const [isOperator, setIsOperator] = useState(true);
   const [isApplyPost, setIsApplyPost] = useState(true);

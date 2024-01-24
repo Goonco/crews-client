@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { Flex, Space, Text } from 'components/atoms';
 import { useNavigate } from 'react-router-dom';
 import arrow from './arrow-up.svg';
-import { instance } from 'api/axios';
-import { signInRequest } from 'api/request';
+import { instance } from 'apis/axios';
+import { signInRequest } from 'apis/request';
 import dayjs from 'dayjs';
 export const SignIn = () => {
   const navigate = useNavigate();

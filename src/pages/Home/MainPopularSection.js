@@ -2,9 +2,9 @@ import { Space } from 'components/atoms';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import MainCrewCard from './MainCrewCard';
-import { homePageRequest } from 'api/request';
+import { homePageRequest } from 'apis/request';
 import { useState } from 'react';
-import { instance } from 'api/axios';
+import { instance } from 'apis/axios';
 function MainPopularSection() {
   // 저장 수 많은 상위 3개 게시물 데이터
   const [hotPostData, setHotPostData] = useState([]);

@@ -1,17 +1,43 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRecoilValue } from 'recoil';
 
+import { applicantListAtom } from '../hooks/evaluateFormAtom';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { G05, B05 } from 'style/palette';
 
 import ApplyBlock from './ApplyBlock';
 import { Text } from 'components/atoms';
 
-function ApplyListSection() {
+const polishApplicantList = (applicantList) => {
+  let polishedApplicantList = [];
+  for (let i = 0; ; i += 4) {
+    let left = applicantList.length - i + 1;
+    if (left > 4) {
+      polishedApplicantList.push(applicantList.slice(i, i + 4));
+    } else {
+      let leftList = applicantList.slice(i);
+      for (let j = 0; j < 4 - left + 1; j++) leftList.push(false);
+      polishedApplicantList.push(leftList);
+      break;
+    }
+  }
+  return polishedApplicantList;
+};
+
+const ApplyListSection = () => {
+  const applicantList = useRecoilValue(applicantListAtom);
+  const polishedList = polishApplicantList(applicantList);
+
   return (
     <ApplyListSectionWrapper>
       <Text size="20px" weight={600} children="지원서 리스트 " />
-      <Text size="20px" weight={700} color={B05} children=" 48" />
+      <Text
+        size="20px"
+        weight={700}
+        color={B05}
+        children={` ${applicantList.length}`}
+      />
       <SortMenu>
         <SortOption>
           <Text size="18px" weight={400} children="점수순" />
@@ -21,43 +47,36 @@ function ApplyListSection() {
         <SortOption>가나다순</SortOption> */}
       </SortMenu>
       <ApplyBlockList>
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
-        <ApplyBlock />
+        {polishedList.map((innerList) => (
+          <Row key={crypto.randomUUID()}>
+            {innerList.map((it) => {
+              if (!it) return <EmptyBlock />;
+              else return <ApplyBlock key={it.studentId} applicantInfo={it} />;
+            })}
+          </Row>
+        ))}
       </ApplyBlockList>
     </ApplyListSectionWrapper>
   );
-}
+};
+
+const ApplyListSectionWrapper = styled.section`
+  margin-bottom: 180px;
+`;
 
 const ApplyBlockList = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 25px;
+`;
+
+const Row = styled.div`
+  display: flex;
   justify-content: space-between;
+`;
+
+const EmptyBlock = styled.div`
+  width: 260px;
 `;
 
 const SortMenu = styled.ul`
@@ -71,9 +90,5 @@ const SortMenu = styled.ul`
 `;
 
 const SortOption = styled.li``;
-
-const ApplyListSectionWrapper = styled.section`
-  margin-bottom: 180px;
-`;
 
 export default ApplyListSection;

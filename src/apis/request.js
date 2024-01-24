@@ -1,5 +1,12 @@
 // 페이지별로 요청할 URL
 
+// 8. 지원서 작성
+const WRITE_FORM_DEFAULT = 'writeform';
+export const WRITE_FORM_REQUEST = {
+  sectionData: WRITE_FORM_DEFAULT + '/sectiondata',
+  questionData: WRITE_FORM_DEFAULT + '/questiondata',
+};
+
 //홈페이지
 
 export const homePageRequest = {

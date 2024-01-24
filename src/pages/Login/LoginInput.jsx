@@ -11,8 +11,8 @@ import { LoginOptions } from './LoginOptions';
 import eyeIcon from './eye.svg';
 import eyeXIcon from './eyeX.svg';
 //import api
-import { loginRequest } from 'api/request';
-import { instance } from 'api/axios';
+import { loginRequest } from 'apis/request';
+import { instance } from 'apis/axios';
 import { useNavigate } from 'react-router-dom';
 export const LoginInput = () => {
   //state

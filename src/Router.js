@@ -11,21 +11,26 @@ import {
   MyPage,
   PostDetail,
 } from 'pages';
+import { NotFoundPage } from 'components/templates';
 import { Home } from 'pages/Home';
 import MainCrewListSection from 'pages/Home/MainCrewListSection';
 import MainPopularSection from 'pages/Home/MainPopularSection';
 import MainHowToUseSection from 'pages/Home/MainHowToUseSection';
 import MainCollaborateSection from 'pages/Home/MainCollaborateSection';
 import { Navigation } from 'components/molecules/Navigation';
+
 const Router = () => {
   return (
     <>
-      <Navigation />
+      {/* <Navigation /> */}
       <Routes>
         <Route path="/makeform" element={<MakeFormPage />} />
         <Route path="/writeform" element={<WriteFormPage />} />
-        <Route path="/evaluateform" element={<EvaluateFormPage />} />
-        <Route path="/evaluatedetail" element={<EvaluateDetailPage />} />
+        <Route path="/evaluateform/:formid" element={<EvaluateFormPage />} />
+        <Route
+          path="/evaluatedetail/:postid"
+          element={<EvaluateDetailPage />}
+        />
 
         <Route path="/signin" element={<SignIn />} />
         <Route path="/makepost" element={<MakePost />} />
@@ -38,6 +43,7 @@ const Router = () => {
           <Route path="/how" element={<MainHowToUseSection />}></Route>
           <Route path="/crews" element={<MainCollaborateSection />}></Route>
         </Route>
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </>
   );

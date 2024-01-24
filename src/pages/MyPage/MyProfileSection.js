@@ -5,8 +5,8 @@ import basicImage from './basic-profile.svg';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { instance } from 'api/axios';
-import { myPageRequest } from 'api/request';
+import { instance } from 'apis/axios';
+import { myPageRequest } from 'apis/request';
 import { ClubType } from './PostItem';
 
 function MyProfileSection() {

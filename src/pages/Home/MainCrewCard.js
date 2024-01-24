@@ -5,8 +5,8 @@ import basicProfile from './basic-profile.svg';
 import dummyImage from './dummyImage.png';
 import saveImage from './save.svg';
 import saveBlueImage from './save-blue.svg';
-import { instance } from 'api/axios';
-import { homePageRequest } from 'api/request';
+import { instance } from 'apis/axios';
+import { homePageRequest } from 'apis/request';
 import { useNavigate } from 'react-router-dom';
 import PostCategoryData from './PostCategory';
 function MainCrewCard({

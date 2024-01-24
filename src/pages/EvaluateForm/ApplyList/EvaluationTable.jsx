@@ -11,7 +11,7 @@ const Dummy = [
   { name: '박뭐뭐', eval: 5 },
 ];
 
-const EvaluationTable = () => {
+const EvaluationTable = ({ averageScore, percentage, evaluation }) => {
   return (
     <TableContainer>
       <thead>
@@ -24,20 +24,20 @@ const EvaluationTable = () => {
               color={B05}
               size="20px"
               weight={700}
-              children="4.4 (상위10%)"
+              children={`${averageScore}  (상위${percentage}%)`}
             />
           </th>
         </TableRow>
       </thead>
 
       <TableBody>
-        {Dummy.map((it, idx) => (
+        {evaluation.map((it, idx) => (
           <TableRow key={idx}>
             <td className="left">
               <Text color={G05} size="14px" weight={500} children={it.name} />
             </td>
             <td className="right">
-              <Text color={G05} size="20px" weight={600} children={it.eval} />
+              <Text color={G05} size="20px" weight={600} children={it.score} />
             </td>
           </TableRow>
         ))}
