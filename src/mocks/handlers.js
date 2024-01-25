@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw';
+import { generateSecret, SignJWT } from 'jose';
 
 import { WRITE_FORM_REQUEST } from 'apis/api/writeform';
 import { EVALUATE_FORM_REQUEST } from 'apis/api/evaluateform';
@@ -35,4 +36,31 @@ export const handlers = [
   }),
 
   // 9*. 지원서 평가 디테일 페이지
+
+  // Registeration Test
+  http.post('/testregister', async ({ request }) => {
+    const { id, pwd } = { ...(await request.json()) };
+
+    if (id === 's07019' && pwd === '!Dd12345') {
+      const jwtTok = await createJwt();
+      return HttpResponse.json({ access: jwtTok });
+    } else return new HttpResponse(null, { status: 404 });
+  }),
 ];
+
+const secretKey = await generateSecret('HS256');
+
+async function createJwt() {
+  const token = await new SignJWT({
+    id: 1,
+    name: 'goonco',
+    role: 'IcanDoAnyTHing',
+  })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setIssuedAt()
+    .setIssuer('FancyGoonco')
+    .setAudience('HandsomeGoonco')
+    .setExpirationTime('1h')
+    .sign(await secretKey);
+  return token;
+}

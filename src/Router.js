@@ -19,11 +19,14 @@ import MainHowToUseSection from 'pages/Home/MainHowToUseSection';
 import MainCollaborateSection from 'pages/Home/MainCollaborateSection';
 import { Navigation } from 'components/molecules/Navigation';
 
+import Register from 'pages/Test/Register';
+
 const Router = () => {
   return (
     <>
       {/* <Navigation /> */}
       <Routes>
+        <Route path="/test" element={<Register />} />
         <Route path="/makeform" element={<MakeFormPage />} />
         <Route path="/writeform" element={<WriteFormPage />} />
         <Route path="/evaluateform/:formid" element={<EvaluateFormPage />} />
