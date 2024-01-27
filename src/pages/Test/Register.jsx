@@ -28,7 +28,7 @@ const Register = () => {
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
 
-  const [errMsg, setErrMsg] = useState('test');
+  const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const Register = () => {
       setSuccess(true);
     } catch (err) {
       if (!err?.response) setErrMsg('No Server Response');
-      else if (err?.response?.status === 404) setErrMsg('Wrong Id or Pw');
+      else if (err?.response?.status === 409) setErrMsg('Wrong Id or Pw');
       else setErrMsg('Registration Failed');
     }
   };
@@ -191,7 +191,7 @@ const Register = () => {
 const MyInput = styled.input`
   border: 1px solid black;
   width: 100px;
-  height: 10pxl;
+  height: 20px;
 `;
 
 const MyForm = styled.form`

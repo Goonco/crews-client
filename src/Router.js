@@ -19,14 +19,18 @@ import MainHowToUseSection from 'pages/Home/MainHowToUseSection';
 import MainCollaborateSection from 'pages/Home/MainCollaborateSection';
 import { Navigation } from 'components/molecules/Navigation';
 
+// Testing
 import Register from 'pages/Test/Register';
+import LoginTest from 'pages/Test/Login';
 
 const Router = () => {
   return (
     <>
       {/* <Navigation /> */}
       <Routes>
-        <Route path="/test" element={<Register />} />
+        <Route path="/testRegister" element={<Register />} />
+        <Route path="/testLogin" element={<LoginTest />} />
+
         <Route path="/makeform" element={<MakeFormPage />} />
         <Route path="/writeform" element={<WriteFormPage />} />
         <Route path="/evaluateform/:formid" element={<EvaluateFormPage />} />
@@ -35,9 +39,9 @@ const Router = () => {
           element={<EvaluateDetailPage />}
         />
 
-        <Route path="/signin" element={<SignIn />} />
+        {/* <Route path="/signin" element={<SignIn />} /> */}
         <Route path="/makepost" element={<MakePost />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/signin" element={<Login />} />
         <Route path="/postdetail/:postid" element={<PostDetail />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/" element={<Home />}>

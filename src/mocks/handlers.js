@@ -11,6 +11,9 @@ import {
 } from './evaluateDummyData';
 
 export const handlers = [
+  // 1. 로그인 페이지
+  // http.post()
+
   // 8. 지원서 작성 페이지
   http.get(WRITE_FORM_REQUEST.sectionData, () => {
     return Response.json(DUMMY_SECTION_DATA);
@@ -44,12 +47,12 @@ export const handlers = [
     if (id === 's07019' && pwd === '!Dd12345') {
       const jwtTok = await createJwt();
       return HttpResponse.json({ access: jwtTok });
-    } else return new HttpResponse(null, { status: 404 });
+    } else return new HttpResponse(null, { status: 409 });
   }),
 ];
 
+// Create JWT Token
 const secretKey = await generateSecret('HS256');
-
 async function createJwt() {
   const token = await new SignJWT({
     id: 1,

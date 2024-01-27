@@ -4,6 +4,8 @@ import App from './App';
 import { RecoilRoot } from 'recoil';
 import { worker } from './mocks/browser';
 
+import { AuthProvoider } from 'pages/Test/AuthProvider';
+
 if (process.env.REACT_APP_NODE_ENV === 'development') {
   worker.start();
 }
@@ -12,7 +14,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <RecoilRoot>
-    <App />
+    <AuthProvoider>
+      <App />
+    </AuthProvoider>
   </RecoilRoot>
   // </React.StrictMode>
 );

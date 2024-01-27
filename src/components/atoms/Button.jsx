@@ -18,7 +18,7 @@ export const Button = ({
   width = 'auto',
   height = 'auto',
   status = 'active',
-  fontSize = '20px',
+  fontSize = '16px',
   fontWeight = 'bold',
   onClick,
   children,
