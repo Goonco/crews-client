@@ -1,8 +1,11 @@
 import { http, HttpResponse } from 'msw';
 import { generateSecret, SignJWT } from 'jose';
 
-import { WRITE_FORM_REQUEST } from 'apis/api/writeform';
-import { EVALUATE_FORM_REQUEST } from 'apis/api/evaluateform';
+import {
+  SIGNIN_REQUEST,
+  WRITE_FORM_REQUEST,
+  EVALUATE_FORM_REQUEST,
+} from 'apis/api';
 
 import { DUMMY_SECTION_DATA, DUMMY_QUESTION_DATA } from './formDummyData';
 import {
@@ -11,8 +14,19 @@ import {
 } from './evaluateDummyData';
 
 export const handlers = [
-  // 1. 로그인 페이지
-  // http.post()
+  // 1. Sign In Page
+  http.post(SIGNIN_REQUEST.signin, async ({ request }) => {
+    const { id, pw } = { ...(await request.json()) };
+
+    if (id === 'admin' && pw === '1234') {
+      const jwtTok = await createJwt();
+      return HttpResponse.json({ accessToken: jwtTok, roles: ['leader'] });
+    } else if (id === 'user' && pw === '1234') {
+      // may need to change token content?
+      const jwtTok = await createJwt();
+      return HttpResponse.json({ accessToken: jwtTok, roles: ['member'] });
+    } else return new HttpResponse(null, { status: 404 });
+  }),
 
   // 8. 지원서 작성 페이지
   http.get(WRITE_FORM_REQUEST.sectionData, () => {
@@ -56,13 +70,13 @@ const secretKey = await generateSecret('HS256');
 async function createJwt() {
   const token = await new SignJWT({
     id: 1,
-    name: 'goonco',
-    role: 'IcanDoAnyTHing',
+    name: 'admin',
+    role: 'omniscience',
   })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setIssuer('FancyGoonco')
-    .setAudience('HandsomeGoonco')
+    .setIssuer('BEGoonco')
+    .setAudience('FEGoonco')
     .setExpirationTime('1h')
     .sign(await secretKey);
   return token;

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { useRef, useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import useAuth from 'apis/context/useAuth';
 import { signInAPI } from 'apis/api/signin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -14,6 +16,11 @@ import { Button, Input, Text } from 'components/atoms';
 import { LoginOptions } from './LoginOptions';
 
 export const LoginInput = () => {
+  const { setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+
   const idRef = useRef();
   const pwRef = useRef();
 
@@ -34,7 +41,8 @@ export const LoginInput = () => {
     setShowPW(!showPW);
     setCanBlur(false);
   };
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     setCanBlur(true);
     pwRef.current.focus();
   };
@@ -59,8 +67,11 @@ export const LoginInput = () => {
 
     try {
       const response = await signInAPI.signIn(inputs);
-      console.log(response.data);
+      const accessToken = response?.data?.accessToken;
+      const roles = response?.data?.roles;
+      setAuth({ id: inputs.id, pw: inputs.pw, accessToken, roles });
       setInputs({ id: '', pw: '' });
+      navigate(from, { replace: true });
     } catch (e) {
       // 에러 코드에 따른 setErrorMsg()
       setErrorMsg('로그인 실패 😡');
@@ -141,7 +152,7 @@ export const LoginInput = () => {
 
         <LoginOptions />
 
-        <Button children="로그인" width="100%" height="50px" />
+        <Button type="submit" children="로그인" width="100%" height="50px" />
       </form>
     </LoginInputContainer>
   );

@@ -8,7 +8,7 @@ import EvaluateSummarySection from './EvaluateSummarySection';
 import ApplyListSection from './ApplyList/ApplyListSection';
 import ConfirmBar from './ConfirmBar';
 
-import { LoadingPage } from 'components/templates';
+import { LoadingPage } from 'pages';
 import { evaluateformApi } from 'apis/api/evaluateform';
 
 export const EvaluateFormPage = () => {

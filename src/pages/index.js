@@ -8,3 +8,5 @@ export * from './SignUp';
 export * from './PostDetail';
 export * from './EvaluteDetail';
 export * from './MyPage';
+
+export * from './Others';

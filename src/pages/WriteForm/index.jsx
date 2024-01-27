@@ -13,7 +13,7 @@ import SectionBox from './Section/SectionBox';
 import SelectSectionBox from './Section/SelectSectionBox';
 import WriteFormHeader from './WirteFormHeader';
 import { Button, Text } from 'components/atoms';
-import { LoadingPage } from 'components/templates';
+import { LoadingPage } from 'pages/Others';
 
 export const WriteFormPage = () => {
   const [sectionData, setSectionData] = useRecoilState(sectionDataAtom);
