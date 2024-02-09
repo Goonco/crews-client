@@ -1,12 +1,10 @@
 import { useRef, useState, useEffect, useContext } from 'react';
+import tokenUtils from 'mocks/tokenUtils';
 import styled from 'styled-components';
 
 import { baseInstance } from 'apis/utils/instance';
-import AuthContext from './AuthProvider';
 
 const LoginTest = () => {
-  const { setAuth } = useContext(AuthContext);
-
   const idRef = useRef();
 
   const [id, setId] = useState('');
@@ -14,7 +12,12 @@ const LoginTest = () => {
   const [errMsg, setErrMsg] = useState('test');
   const [success, setSuccess] = useState(false);
 
+  const test = async () => {
+    await tokenUtils.createAccess({ id: 1 });
+  };
+
   useEffect(() => {
+    test();
     if (!success) idRef.current.focus();
   }, []);
 

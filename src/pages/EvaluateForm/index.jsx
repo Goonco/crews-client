@@ -9,7 +9,7 @@ import ApplyListSection from './ApplyList/ApplyListSection';
 import ConfirmBar from './ConfirmBar';
 
 import { LoadingPage } from 'pages';
-import { evaluateformApi } from 'apis/api/evaluateform';
+import { useEvaluateformApi } from 'apis/api';
 
 export const EvaluateFormPage = () => {
   const { formid } = useParams();
@@ -17,10 +17,12 @@ export const EvaluateFormPage = () => {
 
   const [loading2, setLoading2] = useState(true);
   const [recruitmentName, setRecruitmentName] = useState('');
+  const { getRecruitmentName } = useEvaluateformApi();
+
   const fetchRecruitmentName = async () => {
     try {
       setRecruitmentName(
-        (await evaluateformApi.getRecruitmentName(formid)).data.recruitmentName
+        (await getRecruitmentName(formid)).data.recruitmentName
       );
       setLoading2(false);
     } catch (e) {

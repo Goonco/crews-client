@@ -50,7 +50,7 @@ const ApplyListSection = () => {
         {polishedList.map((innerList) => (
           <Row key={crypto.randomUUID()}>
             {innerList.map((it) => {
-              if (!it) return <EmptyBlock />;
+              if (!it) return <EmptyBlock key={-1} />;
               else return <ApplyBlock key={it.studentId} applicantInfo={it} />;
             })}
           </Row>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useRef, useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from 'apis/context/useAuth';
 import { signInAPI } from 'apis/api/signin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -69,6 +69,7 @@ export const LoginInput = () => {
       const response = await signInAPI.signIn(inputs);
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
+
       setAuth({ id: inputs.id, pw: inputs.pw, accessToken, roles });
       setInputs({ id: '', pw: '' });
       navigate(from, { replace: true });

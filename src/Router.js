@@ -22,6 +22,7 @@ import MainCollaborateSection from 'pages/Home/MainCollaborateSection';
 // Testing
 import Register from 'pages/Test/Register';
 import LoginTest from 'pages/Test/Login';
+import Middle from 'pages/Test/Middle';
 
 const Roles = {
   member: 'member',
@@ -31,6 +32,11 @@ const Roles = {
 const Router = () => {
   return (
     <Routes>
+      {/* ************** Testing Routes */}
+      <Route path="/" element={<Middle />} />
+      <Route path="/testRegister" element={<Register />} />
+      <Route path="/testLogin" element={<LoginTest />} />
+
       {/* ************** Public Routes */}
       <Route path="/signup" element={<SignIn />} />
       <Route path="/signin" element={<Login />} />
@@ -64,10 +70,6 @@ const Router = () => {
         <Route path="/postdetail/:postid" element={<PostDetail />} />
         <Route path="/mypage" element={<MyPage />} />
       </Route>
-
-      {/* ************** Testing Routes */}
-      <Route path="/testRegister" element={<Register />} />
-      <Route path="/testLogin" element={<LoginTest />} />
 
       {/* ************** Catch All */}
       <Route path="/*" element={<NotFoundPage />} />

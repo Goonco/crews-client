@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { generateSecret, SignJWT } from 'jose';
+import tokenUtils from './tokenUtils';
 
 import {
   SIGNIN_REQUEST,
@@ -13,18 +13,46 @@ import {
   DUMMY_APPLICANT_LIST,
 } from './evaluateDummyData';
 
+const { createAccess, createRefresh, verifyToken } = {
+  ...tokenUtils,
+};
+
 export const handlers = [
+  // *. Refresh
+  http.get('/refresh', async ({ cookies }) => {
+    const { refreshTok } = { ...cookies };
+    const { status, msg, payload } = { ...(await verifyToken(refreshTok)) };
+
+    if (status === 200) {
+      const accessToken = await createAccess({ id: payload.id });
+      return HttpResponse.json({ accessToken });
+    } else return new HttpResponse(msg, { status });
+  }),
+
   // 1. Sign In Page
   http.post(SIGNIN_REQUEST.signin, async ({ request }) => {
     const { id, pw } = { ...(await request.json()) };
+    const accessTok = await createAccess({ id });
+    const refreshTok = await createRefresh({ id });
 
     if (id === 'admin' && pw === '1234') {
-      const jwtTok = await createJwt();
-      return HttpResponse.json({ accessToken: jwtTok, roles: ['leader'] });
-    } else if (id === 'user' && pw === '1234') {
-      // may need to change token content?
-      const jwtTok = await createJwt();
-      return HttpResponse.json({ accessToken: jwtTok, roles: ['member'] });
+      return new HttpResponse(
+        JSON.stringify({ accessToken: accessTok, roles: ['leader'] }),
+        {
+          status: 200,
+          headers: {
+            'Set-Cookie': `refreshTok=${refreshTok}; Max-Age=3600;`,
+          },
+        }
+      );
+      // } else if (id === 'user' && pw === '1234') {
+      //   return new HttpResponse(
+      //     JSON.stringify({ accessToken: accessTok, roles: ['member'] }),
+      //     {
+      //       status: 200,
+      //       headers: { 'Set-Cookie': refreshTok },
+      //     }
+      //   );
     } else return new HttpResponse(null, { status: 404 });
   }),
 
@@ -38,46 +66,47 @@ export const handlers = [
   }),
 
   // 9. 지원서 평가 페이지
-  http.get(EVALUATE_FORM_REQUEST.recruitmentName(), ({ params }) => {
+  http.get(EVALUATE_FORM_REQUEST.recruitmentName(), async ({ params }) => {
     const dummyData = DUMMY_RECRUITMENT_NAME(params.formId);
 
     if (dummyData) return HttpResponse.json(dummyData);
     else throw new Error();
   }),
 
-  http.get(EVALUATE_FORM_REQUEST.applicantList(), ({ params }) => {
-    const dummyData = DUMMY_APPLICANT_LIST(params.formId);
+  http.get(
+    EVALUATE_FORM_REQUEST.applicantList(),
+    async ({ params, request }) => {
+      try {
+        const dummyData = DUMMY_APPLICANT_LIST(params.formId);
 
-    if (dummyData) return HttpResponse.json(dummyData);
-    else throw new Error();
-  }),
+        if (!dummyData) return HttpResponse('Not Found', { status: 404 });
+        if (!request.headers?.get('Authorization'))
+          return new HttpResponse('No Access Token', { status: 401 });
+
+        const token = request.headers?.get('Authorization').split(' ')[1];
+        const { status, msg } = { ...(await verifyToken(token)) };
+
+        if (status === 200) return HttpResponse.json(dummyData);
+        else return new HttpResponse(msg, { status });
+      } catch (e) {
+        console.log(e, '****************************');
+      }
+    }
+  ),
 
   // 9*. 지원서 평가 디테일 페이지
 
   // Registeration Test
-  http.post('/testregister', async ({ request }) => {
-    const { id, pwd } = { ...(await request.json()) };
+  // http.post('/testregister', async ({ request }) => {
+  //   const { id, pwd } = { ...(await request.json()) };
 
-    if (id === 's07019' && pwd === '!Dd12345') {
-      const jwtTok = await createJwt();
-      return HttpResponse.json({ access: jwtTok });
-    } else return new HttpResponse(null, { status: 409 });
-  }),
+  //   if (id === 's07019' && pwd === '!Dd12345') {
+  //     const jwtTok = await createJwt();
+  //     return HttpResponse.json({ access: jwtTok });
+  //   } else return new HttpResponse(null, { status: 409 });
+  // }),
+
+  // Catch All
+  http.get('/*', () => HttpResponse.error()),
+  http.post('/*', () => HttpResponse.error()),
 ];
-
-// Create JWT Token
-const secretKey = await generateSecret('HS256');
-async function createJwt() {
-  const token = await new SignJWT({
-    id: 1,
-    name: 'admin',
-    role: 'omniscience',
-  })
-    .setProtectedHeader({ alg: 'HS256' })
-    .setIssuedAt()
-    .setIssuer('BEGoonco')
-    .setAudience('FEGoonco')
-    .setExpirationTime('1h')
-    .sign(await secretKey);
-  return token;
-}

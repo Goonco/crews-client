@@ -5,7 +5,7 @@ import {
   detailedApplicantAtom,
 } from './evaluateFormAtom';
 
-import { evaluateformApi } from 'apis/api/evaluateform';
+import { useEvaluateformApi } from 'apis/api/evaluateform';
 import { useState } from 'react';
 
 const useApplicantList = () => {
@@ -16,14 +16,14 @@ const useApplicantList = () => {
   );
   const [loading, setLoading] = useState(true);
 
+  const { getApplicationList } = useEvaluateformApi();
+
   const fetchApplicantList = async (formId) => {
     try {
-      setApplicationList(
-        (await evaluateformApi.getApplicationList(formId)).data
-      );
+      setApplicationList((await getApplicationList(formId)).data);
       setLoading(false);
     } catch (e) {
-      console.log(`${e} : fetchApplicantList API Error`);
+      console.log(`[Error catched by fetchApplicantList]\n\n${e}`);
     }
   };
 

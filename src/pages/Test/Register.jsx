@@ -1,3 +1,4 @@
+import { SignJWT } from 'jose';
 import { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {
@@ -6,12 +7,32 @@ import {
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import tokenUtils from 'mocks/tokenUtils';
 
 import { createJwt } from './TokenTest';
 import { baseInstance } from 'apis/utils/instance';
 
 const ID_REGEX = /^[a-zA-X][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-X])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
+const test = async () => {
+  const secret = new TextEncoder().encode(
+    'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2'
+  );
+  const alg = 'HS256';
+
+  const jwt = await new SignJWT({ 'urn:example:claim': true })
+    .setProtectedHeader({ alg })
+    .setIssuedAt()
+    .setIssuer('urn:example:issuer')
+    .setAudience('urn:example:audience')
+    .setExpirationTime('2h')
+    .sign(secret);
+
+  console.log(jwt);
+
+  return jwt;
+};
 
 const Register = () => {
   const idRef = useRef();
@@ -33,6 +54,8 @@ const Register = () => {
 
   useEffect(() => {
     if (!success) idRef.current.focus();
+
+    test();
   }, []);
 
   useEffect(() => {
