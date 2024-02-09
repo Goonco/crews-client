@@ -1,19 +1,22 @@
-import { BrowserRouter } from 'react-router-dom';
-import 'style/font.css';
+import styled from 'styled-components';
 
-import Router from 'Router';
+import 'style/font.css';
 import GlobalStyle from 'style/GlobalStyle';
-import { AppContainer } from 'components/templates';
+import { BK02 } from 'style/palette';
+import Router from 'Router';
 
 function App() {
   return (
-    <BrowserRouter>
+    <AppContainer>
       <GlobalStyle />
-      <AppContainer>
-        <Router />
-      </AppContainer>
-    </BrowserRouter>
+      <Router />
+    </AppContainer>
   );
 }
+
+const AppContainer = styled.div`
+  /* max-width: 1920px; */
+  color: ${BK02};
+`;
 
 export default App;

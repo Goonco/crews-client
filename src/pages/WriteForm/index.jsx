@@ -1,19 +1,40 @@
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import axios from 'axios';
 
 // Imported Functions & Datas
-import { sectionDataAtom } from './hooks/WriteFormAtom';
+import { sectionDataAtom, questionDataAtom } from './hooks/WriteFormAtom';
 import { G05 } from 'style/palette';
+import { writeformApi } from 'apis/api/writeform';
 
 // Imported Components
 import SectionBox from './Section/SectionBox';
 import SelectSectionBox from './Section/SelectSectionBox';
 import WriteFormHeader from './WirteFormHeader';
 import { Button, Text } from 'components/atoms';
+import { LoadingPage } from 'pages/Others';
 
 export const WriteFormPage = () => {
-  const sectionData = useRecoilValue(sectionDataAtom);
+  const [sectionData, setSectionData] = useRecoilState(sectionDataAtom);
+  const [questionData, setQuestionData] = useRecoilState(questionDataAtom);
+  const [loading, setLoading] = useState(true);
 
+  const fetchSectionAndQuestionData = async () => {
+    try {
+      setSectionData((await writeformApi.getSection()).data);
+      setQuestionData((await writeformApi.getQuestion()).data);
+      setLoading(false);
+    } catch (e) {
+      console.log(`${e} : WriteFormPage API Error`);
+    }
+  };
+
+  useEffect(() => {
+    fetchSectionAndQuestionData();
+  }, []);
+
+  if (loading) return <LoadingPage />;
   return (
     <WriteFormWrapper>
       <WriteFormContainer>

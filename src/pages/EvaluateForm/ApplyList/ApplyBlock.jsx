@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import useApplicantList from '../hooks/useApplicantList';
 import { useNavigate } from 'react-router-dom';
 
 import { BK02, G05, G02, G03, B02, B04 } from 'style/palette';
@@ -7,45 +8,60 @@ import { BK02, G05, G02, G03, B02, B04 } from 'style/palette';
 import { Flex, Text, Button } from 'components/atoms';
 import EvaluationTable from './EvaluationTable';
 
-const ApplyBlock = () => {
-  const [isSelected, setIsSelcted] = useState(false);
-  const [isDetailed, setIsDetailed] = useState(false);
+const ApplyBlock = ({ applicantInfo }) => {
+  const {
+    studentId,
+    name,
+    major,
+    selected,
+    averageScore,
+    percentage,
+    evaluation,
+  } = { ...applicantInfo };
+
+  const { selectApplicant, detailedApplicant, detailApplicant } =
+    useApplicantList();
 
   const handleSelect = (e) => {
     e.stopPropagation();
-    setIsSelcted(!isSelected);
+    selectApplicant(studentId);
   };
 
   const handleDetail = () => {
-    console.log('test');
-    setIsDetailed(!isDetailed);
+    detailApplicant(studentId);
   };
 
+  const isDetailed = detailedApplicant === studentId;
+
   return (
-    <ApplyBlockContainer selectedBlock={isSelected} onClick={handleDetail}>
+    <ApplyBlockContainer selectedBlock={selected} onClick={handleDetail}>
       <UserInfoSection>
         <Flex direction="column" gap={2} align="start">
-          <Text size="20px" weight={700} color={BK02} children="20191599" />
-          <Text size="20px" weight={700} color={BK02} children="송경호" />
+          <Text size="20px" weight={700} color={BK02} children={studentId} />
+          <Text size="20px" weight={700} color={BK02} children={name} />
           <Text
             size="14px"
             weight={400}
             color={G05}
             lineHeight="160%"
-            children="컴퓨터공학과"
+            children={major}
           />
         </Flex>
         <Flex>
           <CheckApplyBlockButton
             onClick={handleSelect}
-            selectedBlock={isSelected}
+            selectedBlock={selected}
           />
         </Flex>
       </UserInfoSection>
       {isDetailed ? (
         <>
           <HR />
-          <EvaluationTable />
+          <EvaluationTable
+            averageScore={averageScore}
+            percentage={percentage}
+            evaluation={evaluation}
+          />
           <Button
             width="100%"
             height="50px"

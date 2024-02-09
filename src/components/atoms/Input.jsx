@@ -37,6 +37,8 @@ export const Input = ({
   onFocus,
   type = 'text',
   padding,
+  refer,
+  ...rest
 }) => {
   const borderColor = BorderColors[status];
   const bgColor = BgColors[status];
@@ -56,6 +58,9 @@ export const Input = ({
       placeholder={placeholder}
       type={type}
       padding={padding}
+      autoComplete="off"
+      ref={refer}
+      {...rest}
     />
   );
 };
@@ -69,7 +74,7 @@ const StyledInput = styled.input`
   cursor: text;
 
   font-family: 'Pretendard-Regular';
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   color: ${({ fontColor }) => fontColor};
   text-indent: 15px;

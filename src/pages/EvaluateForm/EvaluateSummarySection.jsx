@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 
 import { G05, B01, BK02, B05 } from 'style/palette';
+import useApplicantList from './hooks/useApplicantList';
 
 import { Text } from 'components/atoms';
 
-function EvaluateSummarySection() {
+function EvaluateSummarySection({ recruitmentName }) {
+  const { applicantList, selectedApplicantList } = useApplicantList();
+
   return (
     <EvalutateSummarySectionWrapper>
       <EvaluateHeader
@@ -17,7 +20,7 @@ function EvaluateSummarySection() {
         color={G05}
         size="20px"
         weight={600}
-        children="‘멋쟁이 사자처럼 서강대에서 19기 아기사자를 모집합니다!’ "
+        children={`‘${recruitmentName}’ `}
       />
       <Text
         color={G05}
@@ -29,9 +32,9 @@ function EvaluateSummarySection() {
       <InformationBoard>
         <MainInform>
           <SmallText color={BK02} children="지원자 " />
-          <BigText color={BK02} children="48" />
-          <SmallText color={BK02} children=" 명 중 " />{' '}
-          <BigText color={B05} children="12" />
+          <BigText color={BK02} children={applicantList.length} />
+          <SmallText color={BK02} children=" 명 중 " />
+          <BigText color={B05} children={selectedApplicantList.length} />
           <SmallText color={B05} children=" 명이 합격했어요 🎉" />
         </MainInform>
         <Text
