@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 
-import { LoginInput } from './LoginInput';
-import { LoginHeader } from './LoginHeader';
+import LoginHeader from './LoginHeader';
+import LeaderInput from './LeaderInput';
+import MemberInput from './MemberInput';
+import DivisionLine from './DivisionLine';
 
 export const Login = () => {
   return (
     <LoginPageWrapper>
       <LoginPageContainer>
         <LoginHeader />
-        <LoginInput />
+        <MemberInput />
+        <DivisionLine />
+        <LeaderInput />
       </LoginPageContainer>
     </LoginPageWrapper>
   );
@@ -29,6 +33,7 @@ const LoginPageContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 40px;
 
   background-color: #fff;
 `;

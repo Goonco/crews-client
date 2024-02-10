@@ -13,7 +13,6 @@ import {
 import { BK02, R02 } from 'style/palette';
 
 import { Button, Input, Text } from 'components/atoms';
-import { LoginOptions } from './LoginOptions';
 
 export const LoginInput = () => {
   const { setAuth } = useAuth();
@@ -150,8 +149,6 @@ export const LoginInput = () => {
         ) : (
           <></>
         )}
-
-        <LoginOptions />
 
         <Button type="submit" children="로그인" width="100%" height="50px" />
       </form>

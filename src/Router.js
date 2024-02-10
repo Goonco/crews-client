@@ -10,11 +10,6 @@ import {
 } from 'pages';
 import { RequireAuth } from 'components/templates';
 
-// Testing
-import Register from 'pages/Test/Register';
-import LoginTest from 'pages/Test/Login';
-import Middle from 'pages/Test/Middle';
-
 const Roles = {
   member: 'member',
   leader: 'leader',
@@ -23,13 +18,8 @@ const Roles = {
 const Router = () => {
   return (
     <Routes>
-      {/* ************** Testing Routes */}
-      <Route path="/" element={<Middle />} />
-      <Route path="/testRegister" element={<Register />} />
-      <Route path="/testLogin" element={<LoginTest />} />
-
       {/* ************** Public Routes */}
-      <Route path="/signin" element={<Login />} />
+      <Route path="/" element={<Login />} />
 
       {/* ************** Protected Routes */}
 
