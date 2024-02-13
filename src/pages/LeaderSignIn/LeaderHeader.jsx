@@ -6,9 +6,9 @@ import { B05, BK02 } from '../../style/palette';
 
 import { Flex, Text } from 'components/atoms';
 
-const LoginHeader = () => {
+const LeaderSignInHeader = () => {
   return (
-    <LoginHeaderContainer>
+    <LeaderSignInHeaderContainer>
       <Text color={BK02} size="22px" weight={700}>
         누구나 쉽게 모집 · 지원
       </Text>
@@ -18,11 +18,11 @@ const LoginHeader = () => {
         </Text>
         <FontAwesomeIcon icon={faAnchor} className="fa-2x" />
       </Flex>
-    </LoginHeaderContainer>
+    </LeaderSignInHeaderContainer>
   );
 };
 
-const LoginHeaderContainer = styled.div`
+const LeaderSignInHeaderContainer = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -31,4 +31,4 @@ const LoginHeaderContainer = styled.div`
   color: ${B05};
 `;
 
-export default LoginHeader;
+export default LeaderSignInHeader;

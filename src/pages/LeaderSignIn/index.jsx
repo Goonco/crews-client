@@ -1,29 +1,29 @@
 import styled from 'styled-components';
 
-import LoginHeader from './LoginHeader';
+import LeaderSignInHeader from './LeaderHeader';
 import LeaderInput from './LeaderInput';
-import MemberInput from './MemberInput';
+import RecruitmentInput from './RecruitmentInput';
 import DivisionLine from './DivisionLine';
 
-export const Login = () => {
+export const LeaderSignIn = () => {
   return (
-    <LoginPageWrapper>
-      <LoginPageContainer>
-        <LoginHeader />
-        <MemberInput />
+    <SignInWrapper>
+      <SignInContainer>
+        <LeaderSignInHeader />
+        <RecruitmentInput />
         <DivisionLine />
         <LeaderInput />
-      </LoginPageContainer>
-    </LoginPageWrapper>
+      </SignInContainer>
+    </SignInWrapper>
   );
 };
 
-const LoginPageWrapper = styled.div`
+export const SignInWrapper = styled.div`
   width: 100%;
   background-color: #fdfdfd;
 `;
 
-const LoginPageContainer = styled.div`
+export const SignInContainer = styled.div`
   margin: 0 auto;
   padding: 70px;
   width: fit-content;

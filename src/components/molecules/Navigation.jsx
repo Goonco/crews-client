@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Flex } from 'components/atoms';
 import basicProfile from './basic-profile.svg';
 import { useEffect, useState } from 'react';
-import { SignIn } from 'pages';
+import { LeaderSignIn } from 'pages';
 export const Navigation = () => {
   const nav = useNavigate();
   const [isLogin, setLogin] = useState();

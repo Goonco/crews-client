@@ -1,16 +1,9 @@
-import styled from 'styled-components';
 import { useRef, useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import useAuth from 'apis/context/useAuth';
-import { signInAPI } from 'apis/api/signin';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 
-import {
-  faCircleXmark,
-  faEye,
-  faEyeSlash,
-} from '@fortawesome/free-solid-svg-icons';
-import { BK02, R02 } from 'style/palette';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { R02 } from 'style/palette';
+import { ROUTES } from 'Router';
 
 import {
   InputLabelText,
@@ -21,13 +14,9 @@ import {
 } from './LeaderInput';
 import { Button, Input, Text } from 'components/atoms';
 
-const MemberInput = () => {
-  const { setAuth } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
-
+const RecruitmentInput = () => {
   const idRef = useRef();
+  const navigate = useNavigate();
 
   const [input, setInput] = useState('');
   const handleInputsChange = (e) => setInput(e.target.value);
@@ -55,18 +44,7 @@ const MemberInput = () => {
       return;
     }
 
-    // try {
-    //   const response = await signInAPI.signIn(inputs);
-    //   const accessToken = response?.data?.accessToken;
-    //   const roles = response?.data?.roles;
-
-    //   setAuth({ id: inputs.id, pw: inputs.pw, accessToken, roles });
-    //   setInputs({ id: '', pw: '' });
-    //   navigate(from, { replace: true });
-    // } catch (e) {
-    //   // 에러 코드에 따른 setErrorMsg()
-    //   setErrorMsg('로그인 실패 😡');
-    // }
+    navigate(ROUTES.SIGNINMEMBER(input));
   };
 
   const inputStatus = (key) =>
@@ -109,4 +87,4 @@ const MemberInput = () => {
   );
 };
 
-export default MemberInput;
+export default RecruitmentInput;

@@ -5,6 +5,7 @@ import {
   SIGNIN_REQUEST,
   WRITE_FORM_REQUEST,
   EVALUATE_FORM_REQUEST,
+  signInApi,
 } from 'apis/api';
 
 import { DUMMY_SECTION_DATA, DUMMY_QUESTION_DATA } from './formDummyData';
@@ -17,7 +18,28 @@ const { createAccess, createRefresh, verifyToken } = {
   ...tokenUtils,
 };
 
+const base = (url) => process.env.REACT_APP_BASE_URL + url;
+
 export const handlers = [
+  // SignInMember
+  http.get(
+    base(signInApi.endpoint.getRecruitmentName()),
+    async ({ params }) => {
+      switch (params?.recruitmentId) {
+        case 'ABCD123':
+          return HttpResponse.json({
+            recruitmentName: 'Crews 1기 기획진 모집',
+          });
+        case 'QWER':
+          return HttpResponse.json({
+            recruitmentName: '멋쟁이사자처럼 15기 FE 모집',
+          });
+        default:
+          return new HttpResponse('No such recruitment id', { status: 404 });
+      }
+    }
+  ),
+
   // *. Refresh
   http.get('/refresh', async ({ cookies }) => {
     const { refreshTok } = { ...cookies };

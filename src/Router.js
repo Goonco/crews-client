@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
-import { Header } from 'components/molecules';
 import {
-  Login,
+  LeaderSignIn,
+  MemberSignIn,
   MakeFormPage,
   WriteFormPage,
   EvaluateFormPage,
@@ -10,26 +10,33 @@ import {
 } from 'pages';
 import { RequireAuth } from 'components/templates';
 
-const Roles = {
+export const ROLES = {
   member: 'member',
   leader: 'leader',
+};
+
+export const ROUTES = {
+  SIGNINLEADER: '/',
+  SIGNINMEMBER: (id) =>
+    id ? `/recruitment/${id}` : '/recruitment/:recruitmentId',
 };
 
 const Router = () => {
   return (
     <Routes>
       {/* ************** Public Routes */}
-      <Route path="/" element={<Login />} />
+      <Route path={ROUTES.SIGNINLEADER} element={<LeaderSignIn />} />
+      <Route path={ROUTES.SIGNINMEMBER()} element={<MemberSignIn />} />
 
       {/* ************** Protected Routes */}
 
       {/* 1. Only Member */}
-      <Route element={<RequireAuth availRole={[Roles.member]} />}>
+      <Route element={<RequireAuth availRole={[ROLES.member]} />}>
         <Route path="/writeform" element={<WriteFormPage />} />
       </Route>
 
       {/* 2. Only Leader */}
-      <Route element={<RequireAuth availRole={[Roles.leader]} />}>
+      <Route element={<RequireAuth availRole={[ROLES.leader]} />}>
         <Route path="/evaluateform/:formid" element={<EvaluateFormPage />} />
         <Route
           path="/evaluatedetail/:postid"
@@ -40,7 +47,7 @@ const Router = () => {
 
       {/* 3. Both */}
       <Route
-        element={<RequireAuth availRole={[Roles.member, Roles.leader]} />}
+        element={<RequireAuth availRole={[ROLES.member, ROLES.leader]} />}
       ></Route>
 
       {/* ************** Catch All */}
