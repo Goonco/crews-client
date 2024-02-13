@@ -32,12 +32,6 @@ export const useEvaluateformApi = () => {
     } catch (e) {
       console.log(`[Error catched by getApplicantList]\n\n${e}`);
     }
-    // return await baseInstance.get(EVALUATE_FORM_REQUEST.applicantList(formId), {
-    //   headers: {
-    //     Authorization: `Bearer ${auth.accessToken}`,
-
-    //   },
-    // });
   };
 
   return { getRecruitmentName, getApplicationList };
