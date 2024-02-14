@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 
-import LeaderSignInHeader from './LeaderHeader';
+import LeaderHeader from './LeaderHeader';
 import LeaderInput from './LeaderInput';
 import RecruitmentInput from './RecruitmentInput';
 import DivisionLine from './DivisionLine';
 
 export const LeaderSignIn = () => {
+  console.log(process.env.CHOKIDAR_USEPOLLING);
   return (
     <SignInWrapper>
       <SignInContainer>
-        <LeaderSignInHeader />
+        <LeaderHeader />
         <RecruitmentInput />
         <DivisionLine />
         <LeaderInput />

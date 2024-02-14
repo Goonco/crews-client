@@ -2,14 +2,5 @@
   "compilerOptions": {
     "baseUrl": "src"
   },
-  "include": [
-    "src",
-    "temp/MyPage",
-    "temp/PostDetail",
-    "temp/Home",
-    "temp/Home",
-    "temp/Home",
-    "temp/MakePost",
-    "temp/SignUp"
-  ]
+  "include": ["src"]
 }
