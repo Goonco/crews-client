@@ -10,9 +10,9 @@ export const LeaderSignIn = () => {
     <SignInWrapper>
       <SignInContainer>
         <LeaderHeader />
-        <RecruitmentInput />
+        {/* <RecruitmentInput /> */}
         <DivisionLine />
-        <LeaderInput />
+        {/* <LeaderInput /> */}
       </SignInContainer>
     </SignInWrapper>
   );
