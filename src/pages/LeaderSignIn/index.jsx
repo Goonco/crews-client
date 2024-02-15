@@ -6,7 +6,6 @@ import RecruitmentInput from './RecruitmentInput';
 import DivisionLine from './DivisionLine';
 
 export const LeaderSignIn = () => {
-  console.log(process.env.CHOKIDAR_USEPOLLING);
   return (
     <SignInWrapper>
       <SignInContainer>

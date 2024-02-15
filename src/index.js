@@ -10,7 +10,9 @@ import { worker } from './mocks/browser';
 import { AuthProvider } from 'apis/context/AuthProvider';
 
 if (process.env.REACT_APP_NODE_ENV === 'development') {
-  worker.start();
+  worker.start({
+    onUnhandledRequest: 'bypass',
+  });
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
