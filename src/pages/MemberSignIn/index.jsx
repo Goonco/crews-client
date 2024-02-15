@@ -39,7 +39,7 @@ export const MemberSignIn = () => {
       <SignInWrapper>
         <SignInContainer>
           <MemberHeader recruitmentName={crewName} />
-          <MemberInput />
+          <MemberInput recruitmentId={recruitmentId} />
         </SignInContainer>
       </SignInWrapper>
     );

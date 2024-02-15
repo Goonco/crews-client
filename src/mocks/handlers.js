@@ -1,18 +1,15 @@
 import { http, HttpResponse } from 'msw';
 import tokenUtils from './tokenUtils';
 
-import {
-  SIGNIN_REQUEST,
-  WRITE_FORM_REQUEST,
-  EVALUATE_FORM_REQUEST,
-  signInApi,
-} from 'apis/api';
+import { WRITE_FORM_REQUEST, EVALUATE_FORM_REQUEST, signInApi } from 'apis/api';
 
 import { DUMMY_SECTION_DATA, DUMMY_QUESTION_DATA } from './formDummyData';
 import {
   DUMMY_RECRUITMENT_NAME,
   DUMMY_APPLICANT_LIST,
 } from './evaluateDummyData';
+
+import { ROLES } from 'Router';
 
 const { createAccess, createRefresh, verifyToken } = {
   ...tokenUtils,
@@ -21,7 +18,53 @@ const { createAccess, createRefresh, verifyToken } = {
 const base = (url) => process.env.REACT_APP_BASE_URL + url;
 
 export const handlers = [
-  // SignInMember
+  // leaderSignIn
+  http.post(base(signInApi.endpoint.leaderSignIn), async ({ request }) => {
+    const { leaderPW } = { ...(await request.json()) };
+    const accessTok = await createAccess({ leaderPW });
+    const refreshTok = await createRefresh({ leaderPW });
+
+    if (leaderPW === 'admin') {
+      return new HttpResponse(
+        JSON.stringify({
+          id: 'L126ZC35K2',
+          accessToken: accessTok,
+          roles: [ROLES.leader],
+        }),
+        {
+          status: 200,
+          headers: {
+            'Set-Cookie': `refreshTok=${refreshTok}; Max-Age=3600;`,
+          },
+        }
+      );
+    } else return new HttpResponse(null, { status: 404 });
+  }),
+
+  // memberSignIn
+  http.post(base(signInApi.endpoint.memberSignIn), async ({ request }) => {
+    const { memberPW } = { ...(await request.json()) };
+    const accessTok = await createAccess({ memberPW });
+    const refreshTok = await createRefresh({ memberPW });
+
+    if (memberPW === 'member') {
+      return new HttpResponse(
+        JSON.stringify({
+          id: 'M126ZC35K2',
+          accessToken: accessTok,
+          roles: [ROLES.member],
+        }),
+        {
+          status: 200,
+          headers: {
+            'Set-Cookie': `refreshTok=${refreshTok}; Max-Age=3600;`,
+          },
+        }
+      );
+    } else return new HttpResponse(null, { status: 404 });
+  }),
+
+  // getRecruitmentName
   http.get(
     base(signInApi.endpoint.getRecruitmentName()),
     async ({ params }) => {
@@ -49,33 +92,6 @@ export const handlers = [
   //     const accessToken = await createAccess({ id: payload.id });
   //     return HttpResponse.json({ accessToken });
   //   } else return new HttpResponse(msg, { status });
-  // }),
-
-  // // 1. Sign In Page
-  // http.post(SIGNIN_REQUEST.signin, async ({ request }) => {
-  //   const { id, pw } = { ...(await request.json()) };
-  //   const accessTok = await createAccess({ id });
-  //   const refreshTok = await createRefresh({ id });
-
-  //   if (id === 'admin' && pw === '1234') {
-  //     return new HttpResponse(
-  //       JSON.stringify({ accessToken: accessTok, roles: ['leader'] }),
-  //       {
-  //         status: 200,
-  //         headers: {
-  //           'Set-Cookie': `refreshTok=${refreshTok}; Max-Age=3600;`,
-  //         },
-  //       }
-  //     );
-  //     // } else if (id === 'user' && pw === '1234') {
-  //     //   return new HttpResponse(
-  //     //     JSON.stringify({ accessToken: accessTok, roles: ['member'] }),
-  //     //     {
-  //     //       status: 200,
-  //     //       headers: { 'Set-Cookie': refreshTok },
-  //     //     }
-  //     //   );
-  //   } else return new HttpResponse(null, { status: 404 });
   // }),
 
   // // 8. 지원서 작성 페이지

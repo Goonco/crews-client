@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { useRef, useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useAuth from 'apis/context/useAuth';
-import { signInAPI } from 'apis/api/signin';
+import { signInApi } from 'apis/api/signin';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
@@ -11,14 +11,13 @@ import {
   faEyeSlash,
 } from '@fortawesome/free-solid-svg-icons';
 import { BK02, R02 } from 'style/palette';
+import { ROUTES } from 'Router';
 
 import { Button, Input, Text } from 'components/atoms';
 
 const LeaderInput = () => {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/';
 
   const pwRef = useRef();
 
@@ -58,18 +57,17 @@ const LeaderInput = () => {
       return;
     }
 
-    // try {
-    //   const response = await signInAPI.signIn(inputs);
-    //   const accessToken = response?.data?.accessToken;
-    //   const roles = response?.data?.roles;
+    try {
+      const response = await signInApi.leaderSignIn(input);
 
-    //   setAuth({ id: inputs.id, pw: inputs.pw, accessToken, roles });
-    //   setInputs({ id: '', pw: '' });
-    //   navigate(from, { replace: true });
-    // } catch (e) {
-    //   // 에러 코드에 따른 setErrorMsg()
-    //   setErrorMsg('로그인 실패 😡');
-    // }
+      setAuth({ ...response.data });
+      setInput('');
+      navigate(ROUTES.APPLICATION(response.data.id));
+    } catch (e) {
+      if (e.response.status === 404) {
+        setErrorMsg('비밀번호를 다시 확인해주세요 👽');
+      } else setErrorMsg('로그인 실패 😡');
+    }
   };
 
   const inputStatus = (key) =>
@@ -110,7 +108,6 @@ const LeaderInput = () => {
             ))}
         </PositioningButton>
       </StyledLabel>
-
       {errorMsg ? (
         <Text size="16px" color={R02} weight={500}>
           {errorMsg}
