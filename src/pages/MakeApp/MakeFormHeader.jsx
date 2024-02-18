@@ -10,9 +10,9 @@ const handleQuestionClick = () => {
   alert('설명창 미구현');
 };
 
-const MakeFormHeader = () => {
+const MakeAppHeader = () => {
   return (
-    <MakeFormHeaderContainer>
+    <MakeAppHeaderContainer>
       <Flex justify="left" align="center" gap="12">
         <Text children="STEP 02" size="28px" weight="bold" color={BK02} />
         <TextLine color={G05} size="22px" />
@@ -38,11 +38,11 @@ const MakeFormHeader = () => {
         weight="400"
         color={G05}
       />
-    </MakeFormHeaderContainer>
+    </MakeAppHeaderContainer>
   );
 };
 
-const MakeFormHeaderContainer = styled.div`
+const MakeAppHeaderContainer = styled.div`
   margin: 40px 0;
   text-align: left;
 `;
@@ -60,4 +60,4 @@ const TextLine = styled.span`
   height: ${({ size }) => size};
 `;
 
-export default MakeFormHeader;
+export default MakeAppHeader;

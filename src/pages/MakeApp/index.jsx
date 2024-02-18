@@ -12,11 +12,11 @@ import { G06, BK01 } from 'style/palette';
 
 // Components
 import SectionBox from './Section/SectionBox';
-import MakeFormHeader from './MakeFormHeader';
+import MakeAppHeader from './MakeFormHeader';
 import { Button, Text } from 'components/atoms';
 import { LoadingPage } from 'pages/Others';
 
-export const MakeFormPage = () => {
+export const MakeApp = () => {
   const { applicationId } = useParams();
   const [sectionData, setSectionData] = useMySection();
   const [questionData, setQuestionData] = useMyQuestion();
@@ -93,17 +93,17 @@ export const MakeFormPage = () => {
   if (loading !== 0) return <LoadingPage />;
   else
     return (
-      <MakeFormWrapper>
-        <MakeFormContainer onSubmit={handleSubmit}>
-          <MakeFormHeader />
+      <MakeAppWrapper>
+        <MakeAppContainer onSubmit={handleSubmit}>
+          <MakeAppHeader />
 
-          <MakeFormContent>
+          <MakeAppContent>
             {sectionData.map((it, idx) => (
               <SectionBox key={idx} sectionData={it} idx={idx} />
             ))}
-          </MakeFormContent>
+          </MakeAppContent>
 
-          <MakeFormFooter>
+          <MakeAppFooter>
             <NewSectionButton
               color={G06}
               onClick={addSection}
@@ -122,13 +122,13 @@ export const MakeFormPage = () => {
               height="65px"
               children="모집 공고 등록하기"
             />
-          </MakeFormFooter>
-        </MakeFormContainer>
-      </MakeFormWrapper>
+          </MakeAppFooter>
+        </MakeAppContainer>
+      </MakeAppWrapper>
     );
 };
 
-const MakeFormWrapper = styled.div`
+const MakeAppWrapper = styled.div`
   overflow: hidden;
   width: 100%;
   height: auto;
@@ -136,16 +136,16 @@ const MakeFormWrapper = styled.div`
   text-align: center;
 `;
 
-const MakeFormContainer = styled.form`
+const MakeAppContainer = styled.form`
   width: 760px;
   margin: 0 auto;
 `;
 
-const MakeFormContent = styled.div`
+const MakeAppContent = styled.div`
   margin-bottom: 50px;
 `;
 
-const MakeFormFooter = styled.div`
+const MakeAppFooter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
