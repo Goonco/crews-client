@@ -7,6 +7,8 @@ const STATUS = {
 };
 
 export const ApplicationByStatus = () => {
+  // 여기서 Authentication 잡아야할 거 같은데??/
+
   const [status, setStatus] = useState(false);
 
   useEffect(() => {

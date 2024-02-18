@@ -33,20 +33,18 @@ const CheckBoxQues = ({ questionData, idx }) => {
         />
       </ToggleButtonContainer>
       {options.map((it, opIdx) => (
-        <>
-          <OptionBox key={it.id}>
-            <input type="radio" checked={false} />
-            <OptionInput
-              placeholder="옵션을 작성해주세요."
-              value={it.option}
-              onChange={(e) => changeOption(e, idx, opIdx)}
-            />
-            <DeleteOptionButton
-              children={<FontAwesomeIcon icon={faXmark} className="fa-xl" />}
-              onClick={() => deleteOption(idx, opIdx)}
-            />
-          </OptionBox>
-        </>
+        <OptionBox key={it.id}>
+          <input type="radio" checked={false} />
+          <OptionInput
+            placeholder="옵션을 작성해주세요."
+            value={it.option}
+            onChange={(e) => changeOption(e, idx, opIdx)}
+          />
+          <DeleteOptionButton
+            children={<FontAwesomeIcon icon={faXmark} className="fa-xl" />}
+            onClick={() => deleteOption(idx, opIdx)}
+          />
+        </OptionBox>
       ))}
       <AddOptionButton onClick={handleAddOptionClick}>
         <FontAwesomeIcon icon={faPlus} />

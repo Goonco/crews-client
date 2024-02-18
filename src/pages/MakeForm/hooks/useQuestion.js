@@ -1,7 +1,7 @@
 import {
   questionDataAtom,
-  DEFAULT_CHECKBOX_DATA,
-  DEFAULT_DESCRIPTIVE_DATA,
+  generateCheckboxQues,
+  generateDescriptiveQues,
 } from './MakeFormAtom';
 import { useRecoilState } from 'recoil';
 
@@ -12,9 +12,9 @@ const useQuestion = () => {
     const newQuestionData = questionData.map((ques, idx) => {
       if (idx === idxToChange) {
         if (newQuestionType === 'checkbox')
-          return DEFAULT_CHECKBOX_DATA({ ...ques });
+          return generateCheckboxQues({ ...ques });
         if (newQuestionType === 'descriptive')
-          return DEFAULT_DESCRIPTIVE_DATA({ ...ques });
+          return generateDescriptiveQues({ ...ques });
       }
       return ques;
     });
@@ -125,6 +125,10 @@ const useQuestion = () => {
     deleteOption,
     changeOption,
   };
+};
+
+export const useMyQuestion = () => {
+  return useRecoilState(questionDataAtom);
 };
 
 export default useQuestion;

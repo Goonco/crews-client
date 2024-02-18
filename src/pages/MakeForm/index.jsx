@@ -1,27 +1,87 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-// Imported Functions & Datas
-import useSection from './hooks/useSection';
-import useQuestion from './hooks/useQuestion';
+// Custom Hooks & Functions & Datas
+import { useMySection } from './hooks/useSection';
+import { useMyQuestion } from './hooks/useQuestion';
+import { applicationApi } from 'apis/api';
+import useAuthInstance from 'apis/utils/useAuthInstance';
+import { generateRandomString, isUniqueSectionName } from './utils';
 import { G06, BK01 } from 'style/palette';
 
-// Imported Components
+// Components
 import SectionBox from './Section/SectionBox';
 import MakeFormHeader from './MakeFormHeader';
-import LoadingPage from './LoadingPage';
 import { Button, Text } from 'components/atoms';
+import { LoadingPage } from 'pages/Others';
 
 export const MakeFormPage = () => {
-  const [loading, setLoading] = useState(0);
-  const { sectionData, addSection } = useSection();
-  const { questionData } = useQuestion();
+  const { applicationId } = useParams();
+  const [sectionData, setSectionData] = useMySection();
+  const [questionData, _] = useMyQuestion();
+  const [loading, setLoading] = useState(1);
+  const authInstance = useAuthInstance();
+
+  const fetchSectionData = async () => {
+    try {
+      const response = await applicationApi.getSectionData(
+        authInstance,
+        applicationId
+      );
+
+      setSectionData(response.data);
+      setLoading((prev) => prev - 1);
+    } catch (e) {
+      console.log(
+        `[Error : fetchSectionData error] : ${e.response.status} - ${e.response.statusText}`
+      );
+    }
+  };
+
+  // const fetchQuestionData = () => {
+
+  // }
+
+  useEffect(() => {
+    fetchSectionData();
+  }, []);
+
+  const addSection = () => {
+    if (sectionData.length >= 5) {
+      alert('섹션은 5개까지만 추가할 수 있습니다.');
+      return;
+    }
+
+    let newName;
+    do {
+      newName = generateRandomString();
+    } while (!isUniqueSectionName(sectionData, newName));
+
+    const newId = sectionData[sectionData.length - 1].id + 1;
+    setSectionData((prev) => [
+      ...prev,
+      {
+        id: newId,
+        sectionName: newName,
+        sectionDescription: '',
+      },
+    ]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(
+      JSON.stringify(sectionData, null, 2),
+      JSON.stringify(questionData, null, 2)
+    );
+  };
 
   if (loading !== 0) return <LoadingPage />;
   else
     return (
       <MakeFormWrapper>
-        <MakeFormContainer>
+        <MakeFormContainer onSubmit={handleSubmit}>
           <MakeFormHeader />
 
           <MakeFormContent>
@@ -48,12 +108,6 @@ export const MakeFormPage = () => {
               width="392px"
               height="65px"
               children="모집 공고 등록하기"
-              onClick={() =>
-                console.log(
-                  JSON.stringify(sectionData, null, 2),
-                  JSON.stringify(questionData, null, 2)
-                )
-              }
             />
           </MakeFormFooter>
         </MakeFormContainer>
@@ -69,7 +123,7 @@ const MakeFormWrapper = styled.div`
   text-align: center;
 `;
 
-const MakeFormContainer = styled.div`
+const MakeFormContainer = styled.form`
   width: 760px;
   margin: 0 auto;
 `;

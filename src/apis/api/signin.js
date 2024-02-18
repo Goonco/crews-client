@@ -11,6 +11,7 @@ export const signInApi = {
 
   headers: {
     'Content-Type': 'application/json',
+    withCredentials: true,
     // Accept: 'application/json',
   },
 
@@ -20,7 +21,6 @@ export const signInApi = {
       JSON.stringify({ leaderPW }),
       {
         headers: { ...signInApi.headers },
-        withCredentials: true,
       }
     );
     return response;
@@ -32,7 +32,6 @@ export const signInApi = {
       JSON.stringify({ memberPW }),
       {
         headers: { ...signInApi.headers },
-        withCredentials: true,
       }
     );
     return response;

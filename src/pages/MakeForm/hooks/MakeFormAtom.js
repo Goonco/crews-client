@@ -1,32 +1,6 @@
 import { atom } from 'recoil';
 
-export const sectionDataAtom = atom({
-  key: 'sectionData',
-  default: [
-    {
-      id: 0,
-      sectionName: '공통',
-      sectionDescription: '',
-    },
-  ],
-});
-
-export const questionDataAtom = atom({
-  key: 'questionData',
-  default: [
-    {
-      id: 0,
-      sectionId: 0,
-      questionDescription: '',
-      questionType: 'checkbox',
-      isMandatory: false,
-      canMultipleCheck: false,
-      options: [{ id: 0, option: '' }],
-    },
-  ],
-});
-
-export const DEFAULT_CHECKBOX_DATA = ({
+export const generateCheckboxQues = ({
   id,
   sectionId,
   questionDescription,
@@ -41,7 +15,7 @@ export const DEFAULT_CHECKBOX_DATA = ({
   options: [{ id: 0, option: '' }],
 });
 
-export const DEFAULT_DESCRIPTIVE_DATA = ({
+export const generateDescriptiveQues = ({
   id,
   sectionId,
   questionDescription,
@@ -53,4 +27,40 @@ export const DEFAULT_DESCRIPTIVE_DATA = ({
   isMandatory,
   questionType: 'descriptive',
   characterLimit: 1000,
+});
+
+export const sectionDataAtom = atom({
+  key: 'sectionData',
+  default: [],
+});
+
+export const questionDataAtom = atom({
+  key: 'questionData',
+  default: [
+    generateDescriptiveQues({
+      id: 0,
+      sectionId: 0,
+      questionDescription: '이름을 작성해주세요.',
+      isMandatory: true,
+    }),
+    generateDescriptiveQues({
+      id: 1,
+      sectionId: 0,
+      questionDescription: '학번을 작성해주세요.',
+      isMandatory: true,
+    }),
+    generateDescriptiveQues({
+      id: 2,
+      sectionId: 0,
+      questionDescription: '전공을 작성해주세요.',
+      isMandatory: true,
+    }),
+    generateDescriptiveQues({
+      id: 3,
+      sectionId: 0,
+      questionDescription:
+        '이메일을 작성해주세요. (해당 이메일로 결과가 통지됩니다.)',
+      isMandatory: true,
+    }),
+  ],
 });

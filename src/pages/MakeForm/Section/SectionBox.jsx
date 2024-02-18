@@ -21,7 +21,7 @@ const SectionBox = ({ sectionData, idx }) => {
       <SectionContent>
         {questionData.map((ques, idx) => {
           if (ques.sectionId === id)
-            return <QuestionBox questionData={ques} idx={idx} />;
+            return <QuestionBox key={idx} questionData={ques} idx={idx} />;
         })}
 
         <QuestionAddButton

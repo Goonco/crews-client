@@ -71,4 +71,8 @@ const useSection = () => {
   return { sectionData, addSection, deleteSection, changeSection };
 };
 
+export const useMySection = () => {
+  return useRecoilState(sectionDataAtom);
+};
+
 export default useSection;

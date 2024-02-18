@@ -12,7 +12,7 @@ const tokenUtils = {
       .setIssuedAt()
       .setIssuer('BEGoonco')
       .setAudience('FEGoonco')
-      .setExpirationTime('5sec')
+      .setExpirationTime('1sec')
       .sign(secretKey);
 
     return token;
@@ -24,7 +24,7 @@ const tokenUtils = {
       .setIssuedAt()
       .setIssuer('BEGoonco')
       .setAudience('FEGoonco')
-      .setExpirationTime('3600sec')
+      .setExpirationTime('1sec')
       .sign(secretKey);
 
     return token;
@@ -44,19 +44,19 @@ const tokenUtils = {
 
       return {
         status: 200,
-        msg: 'JWT Verification Success',
+        statusText: 'JWT Verification Success',
         payload,
       };
     } catch (e) {
       if (e.name === 'JWTExpired') {
         return {
           status: 403,
-          msg: 'JWT Expired',
+          statusText: 'JWT Expired',
         };
       } else if (e.name === 'JWSSignatureVerificationFailed') {
         return {
           status: 401,
-          msg: 'JWT Signature Verification Failed',
+          statusText: 'JWT Signature Verification Failed',
         };
       }
     }

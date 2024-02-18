@@ -1,20 +1,55 @@
-export const DUMMY_SECTION_DATA = [
+export const DEFAULT_SECTION_DATA = [
   {
     id: 0,
     sectionName: '공통',
-    sectionDescription: '공통섹션. 공통섹션. 공통섹션.',
-  },
-  {
-    id: 1,
-    sectionName: '지원 섹션 1',
-    sectionDescription: '지원 섹션 1. 지원 섹션 1. 지원 섹션 1.',
-  },
-  {
-    id: 2,
-    sectionName: '지원 섹션 2',
-    sectionDescription: '지원 섹션 2. 지원 섹션 2. 지원 섹션 2.',
+    sectionDescription: '',
   },
 ];
+
+export const DUMMY_SECTION_DATA = (applicationId) => {
+  if (applicationId === 'L126ZC35K2')
+    return [
+      {
+        id: 0,
+        sectionName: '공통',
+        sectionDescription: '공통섹션. 공통섹션. 공통섹션.',
+      },
+      {
+        id: 1,
+        sectionName: '프론트엔드',
+        sectionDescription: '프론트 하지 마세요.. 개노잼인데..',
+      },
+      {
+        id: 2,
+        sectionName: '백엔드',
+        sectionDescription: '근데 사실 백엔드도 별로임...',
+      },
+      {
+        id: 3,
+        sectionName: 'AI',
+        sectionDescription: '인공지능 최고',
+      },
+    ];
+  else if (applicationId === 'L251DKE3F3')
+    return [
+      {
+        id: 0,
+        sectionName: '공통',
+        sectionDescription: '공통섹션. 공통섹션. 공통섹션.',
+      },
+      {
+        id: 1,
+        sectionName: '지원 섹션 1',
+        sectionDescription: '지원 섹션 1. 지원 섹션 1. 지원 섹션 1.',
+      },
+      {
+        id: 2,
+        sectionName: '지원 섹션 2',
+        sectionDescription: '지원 섹션 2. 지원 섹션 2. 지원 섹션 2.',
+      },
+    ];
+  else return DEFAULT_SECTION_DATA;
+};
 
 export const DUMMY_QUESTION_DATA = [
   {
