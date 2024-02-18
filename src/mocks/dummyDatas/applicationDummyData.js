@@ -1,9 +1,46 @@
+import {
+  generateCheckboxQues,
+  generateDescriptiveQues,
+} from 'pages/MakeForm/hooks/MakeFormAtom';
+
 export const DEFAULT_SECTION_DATA = [
   {
     id: 0,
     sectionName: '공통',
     sectionDescription: '',
   },
+];
+
+export const DEFAULT_QUESTION_DATA = [
+  generateDescriptiveQues({
+    id: 0,
+    sectionId: 0,
+    questionDescription: '이름을 작성해주세요.',
+    isMandatory: true,
+    characterLimit: 100,
+  }),
+  generateDescriptiveQues({
+    id: 1,
+    sectionId: 0,
+    questionDescription: '학번을 작성해주세요.',
+    isMandatory: true,
+    characterLimit: 100,
+  }),
+  generateDescriptiveQues({
+    id: 2,
+    sectionId: 0,
+    questionDescription: '전공을 작성해주세요.',
+    isMandatory: true,
+    characterLimit: 100,
+  }),
+  generateDescriptiveQues({
+    id: 3,
+    sectionId: 0,
+    questionDescription:
+      '이메일을 작성해주세요. (해당 이메일로 결과가 통지됩니다.)',
+    isMandatory: true,
+    characterLimit: 100,
+  }),
 ];
 
 export const DUMMY_SECTION_DATA = (applicationId) => {
@@ -51,83 +88,122 @@ export const DUMMY_SECTION_DATA = (applicationId) => {
   else return DEFAULT_SECTION_DATA;
 };
 
-export const DUMMY_QUESTION_DATA = [
-  {
-    id: 0,
-    sectionId: 0,
-    questionDescription: '공통섹션 - 객관식 질문',
-    questionType: 'checkbox',
-    isMandatory: true,
-    canMultipleCheck: true,
-    options: [
-      {
-        id: 0,
-        option: '보기 1',
-      },
-      {
-        id: 1,
-        option: '보기 2',
-      },
-      {
-        id: 2,
-        option: '보기 3',
-      },
-    ],
-  },
-  {
-    id: 1,
-    sectionId: 0,
-    questionDescription: '공통섹션 - 주관식 질문',
-    isMandatory: true,
-    questionType: 'descriptive',
-    characterLimit: '200',
-  },
-  {
-    id: 2,
-    sectionId: 1,
-    questionDescription: '지원섹션1 - 주관식 질문',
-    isMandatory: false,
-    questionType: 'descriptive',
-    characterLimit: 1000,
-  },
-  {
-    id: 3,
-    sectionId: 1,
-    questionType: 'checkbox',
-    questionDescription: '지원섹션1 - 객관식 질문',
-    isMandatory: true,
-    canMultipleCheck: false,
-    options: [
-      {
-        id: 0,
-        option: '무조건 이거 선택 해용',
-      },
-    ],
-  },
-  {
-    id: 4,
-    sectionId: 2,
-    questionType: 'checkbox',
-    questionDescription: '지원 섹션 2 - 객관식 질문',
-    isMandatory: false,
-    canMultipleCheck: true,
-    options: [
-      {
-        id: 0,
-        option: '양자 택일 1',
-      },
-      {
-        id: 1,
-        option: '양자 택일 2',
-      },
-    ],
-  },
-  {
-    id: 5,
-    sectionId: 2,
-    questionDescription: '지원 섹션 2 - 객관식 질문',
-    isMandatory: true,
-    questionType: 'descriptive',
-    characterLimit: '3000',
-  },
-];
+export const DUMMY_QUESTION_DATA = (applicationId) => {
+  const questionData = [...DEFAULT_QUESTION_DATA];
+
+  if (applicationId === 'L126ZC35K2') {
+    const data = [
+      generateCheckboxQues({
+        id: 4,
+        sectionId: 0,
+        questionDescription: '객관식은 이런거에요',
+        isMandatory: false,
+        canMultipleCheck: true,
+        options: [
+          { id: 0, option: '옵션1' },
+          { id: 1, option: '옵션2' },
+          { id: 2, option: '옵션3' },
+        ],
+      }),
+      generateCheckboxQues({
+        id: 5,
+        sectionId: 1,
+        questionDescription: 'FE 객관식 1번',
+        isMandatory: true,
+        canMultipleCheck: false,
+        options: [
+          { id: 0, option: 'fe 옵션1' },
+          { id: 1, option: 'fe 옵션2' },
+          { id: 2, option: 'fe 옵션3' },
+        ],
+      }),
+      generateDescriptiveQues({
+        id: 6,
+        sectionId: 1,
+        questionDescription: 'FE 객관식 2번',
+        isMandatory: true,
+        characterLimit: 1500,
+      }),
+      generateDescriptiveQues({
+        id: 7,
+        sectionId: 2,
+        questionDescription: '백엔드 어쩌구',
+        isMandatory: true,
+        characterLimit: 3000,
+      }),
+      generateCheckboxQues({
+        id: 8,
+        sectionId: 3,
+        questionDescription: 'AI도 있어요?!',
+        isMandatory: false,
+        canMultipleCheck: false,
+        options: [
+          { id: 0, option: 'AI 최고' },
+          { id: 1, option: 'AIAIAIA' },
+          { id: 2, option: 'dmdkdkdkd' },
+          { id: 3, option: '귀찮아' },
+          { id: 4, option: '매우' },
+        ],
+      }),
+    ];
+    questionData.push(...data);
+  } else if (applicationId === 'L251DKE3F3') {
+    const data = [
+      generateCheckboxQues({
+        id: 4,
+        sectionId: 0,
+        questionDescription: '객관식은 이런거에요',
+        isMandatory: false,
+        canMultipleCheck: true,
+        options: [
+          { id: 0, option: '옵션1' },
+          { id: 1, option: '옵션2' },
+          { id: 2, option: '옵션3' },
+        ],
+      }),
+      generateCheckboxQues({
+        id: 5,
+        sectionId: 1,
+        questionDescription: 'FE 객관식 1번',
+        isMandatory: true,
+        canMultipleCheck: false,
+        options: [
+          { id: 0, option: 'fe 옵션1' },
+          { id: 1, option: 'fe 옵션2' },
+          { id: 2, option: 'fe 옵션3' },
+        ],
+      }),
+      generateDescriptiveQues({
+        id: 6,
+        sectionId: 2,
+        questionDescription: 'FE 객관식 2번',
+        isMandatory: true,
+        characterLimit: 1500,
+      }),
+      generateDescriptiveQues({
+        id: 7,
+        sectionId: 2,
+        questionDescription: '백엔드 어쩌구',
+        isMandatory: true,
+        characterLimit: 3000,
+      }),
+      generateCheckboxQues({
+        id: 8,
+        sectionId: 2,
+        questionDescription: 'AI도 있어요?!',
+        isMandatory: false,
+        canMultipleCheck: false,
+        options: [
+          { id: 0, option: 'AI 최고' },
+          { id: 1, option: 'AIAIAIA' },
+          { id: 2, option: 'dmdkdkdkd' },
+          { id: 3, option: '귀찮아' },
+          { id: 4, option: '매우' },
+        ],
+      }),
+    ];
+    questionData.push(...data);
+  }
+
+  return questionData;
+};

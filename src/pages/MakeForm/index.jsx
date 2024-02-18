@@ -19,8 +19,8 @@ import { LoadingPage } from 'pages/Others';
 export const MakeFormPage = () => {
   const { applicationId } = useParams();
   const [sectionData, setSectionData] = useMySection();
-  const [questionData, _] = useMyQuestion();
-  const [loading, setLoading] = useState(1);
+  const [questionData, setQuestionData] = useMyQuestion();
+  const [loading, setLoading] = useState(2);
   const authInstance = useAuthInstance();
 
   const fetchSectionData = async () => {
@@ -39,12 +39,25 @@ export const MakeFormPage = () => {
     }
   };
 
-  // const fetchQuestionData = () => {
+  const fetchQuestionData = async () => {
+    try {
+      const response = await applicationApi.getQuestionData(
+        authInstance,
+        applicationId
+      );
 
-  // }
+      setQuestionData(response.data);
+      setLoading((prev) => prev - 1);
+    } catch (e) {
+      console.log(
+        `[Error : fetchQuestionData error] : ${e.response.status} - ${e.response.statusText}`
+      );
+    }
+  };
 
   useEffect(() => {
     fetchSectionData();
+    fetchQuestionData();
   }, []);
 
   const addSection = () => {

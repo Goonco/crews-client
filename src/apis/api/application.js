@@ -23,4 +23,14 @@ export const applicationApi = {
     );
     return response;
   },
+
+  getQuestionData: async (authInstance, applicationId) => {
+    const response = await authInstance.get(
+      applicationApi.endpoint.getQuestionData(applicationId),
+      {
+        headers: { ...applicationApi.headers },
+      }
+    );
+    return response;
+  },
 };

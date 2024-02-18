@@ -24,7 +24,7 @@ const tokenUtils = {
       .setIssuedAt()
       .setIssuer('BEGoonco')
       .setAudience('FEGoonco')
-      .setExpirationTime('1sec')
+      .setExpirationTime('3600sec')
       .sign(secretKey);
 
     return token;
