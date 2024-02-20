@@ -1,7 +1,7 @@
 import {
   generateCheckboxQues,
   generateDescriptiveQues,
-} from 'pages/MakeForm/hooks/MakeFormAtom';
+} from 'pages/MakeApp/hooks/MakeFormAtom';
 
 export const DEFAULT_SECTION_DATA = [
   {

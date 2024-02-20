@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import {
   LeaderSignIn,
   MemberSignIn,
-  MakeFormPage,
+  MakeApp,
   WriteFormPage,
   EvaluateFormPage,
   EvaluateDetailPage,

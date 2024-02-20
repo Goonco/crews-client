@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { sectionDataAtom } from './hooks/EvaluateDetailAtom';
 
-import SectionBox from '../WriteForm/Section/SectionBox';
+import SectionBox from '../WriteApp/Section/SectionBox';
 
 function FormSection() {
   const sectionData = useRecoilValue(sectionDataAtom);

@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { MakeFormPage, LoadingPage } from 'pages';
+import { MakeApp, LoadingPage, WaitApp } from 'pages';
 
 const STATUS = {
   makeApp: 'make',
+  waitApp: 'wait',
+  evalApp: 'eval',
 };
 
 export const ApplicationByStatus = () => {
@@ -12,12 +14,14 @@ export const ApplicationByStatus = () => {
   const [status, setStatus] = useState(false);
 
   useEffect(() => {
-    setStatus(STATUS.makeApp);
+    setStatus(STATUS.waitApp);
   }, []);
 
   switch (status) {
     case STATUS.makeApp:
-      return <MakeFormPage />;
+      return <MakeApp />;
+    case STATUS.waitApp:
+      return <WaitApp />;
     default:
       return <LoadingPage />;
   }
