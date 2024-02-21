@@ -6,11 +6,11 @@ import { useMyApplicantList } from './hooks/useApplicantList';
 
 import EvaluateSummarySection from './EvaluateSummarySection';
 import ApplyListSection from './ApplyList/ApplyListSection';
-import ConfirmBar from './ConfirmBar';
 
 import { LoadingPage } from 'pages';
 import { applicationApi } from 'apis/api';
 import useAuthInstance from 'apis/utils/useAuthInstance';
+import { Button } from 'components/atoms';
 
 export const EvalApp = () => {
   const { applicationId } = useParams();
@@ -54,15 +54,27 @@ export const EvalApp = () => {
     fetchData();
   }, []);
 
+  const handleClick = () => {
+    alert(
+      '평가 완료 시 합격자들에 대한 메일이 자동 통지되며 해당 행위는 번복할 수 없습니다. 정말 평가를 종료하겠습니까? 🙄'
+    );
+  };
+
   if (!loading)
     return (
       <EvaluationPageWrapper>
         <EvaluationContentContainer>
           <EvaluateSummarySection recruitmentName={applicationName} />
           <ApplyListSection />
+          <Button
+            className="alignCenter"
+            width="230px"
+            height="50px"
+            onClick={handleClick}
+          >
+            지원서 평가 완료
+          </Button>
         </EvaluationContentContainer>
-
-        <ConfirmBar />
       </EvaluationPageWrapper>
     );
   else return <LoadingPage />;
@@ -73,6 +85,10 @@ export const EvaluationPageWrapper = styled.div`
 `;
 
 export const EvaluationContentContainer = styled.div`
-  width: 1200px;
+  width: fit-content;
   margin: 0 auto;
+
+  .alignCenter {
+    margin: 0 auto 50px;
+  }
 `;

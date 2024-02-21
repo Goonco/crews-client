@@ -8,6 +8,11 @@ import { Text } from 'components/atoms';
 function EvaluateSummarySection({ recruitmentName }) {
   const { applicantList, selectedApplicantList } = useApplicantList();
 
+  const competetionRate = !selectedApplicantList.length
+    ? '-'
+    : Math.round((applicantList.length / selectedApplicantList.length) * 10) /
+      10;
+
   return (
     <EvalutateSummarySectionWrapper>
       <EvaluateHeader
@@ -41,7 +46,7 @@ function EvaluateSummarySection({ recruitmentName }) {
           size="20px"
           color={G05}
           weight={400}
-          children="경쟁률 4.0 (최신 업데이트 13 : 07 : 23)"
+          children={`현재 경쟁률은 ${competetionRate} : 1 입니다`}
         />
       </InformationBoard>
     </EvalutateSummarySectionWrapper>
@@ -51,18 +56,18 @@ function EvaluateSummarySection({ recruitmentName }) {
 export default EvaluateSummarySection;
 
 const EvalutateSummarySectionWrapper = styled.section`
-  padding: 40px 0;
+  width: 100%;
   text-align: left;
 `;
 
 const EvaluateHeader = styled(Text)`
   display: block;
-  margin-bottom: 10px;
+  margin: 40px 0 10px;
 `;
 
 const InformationBoard = styled.div`
   width: fit-content;
-  margin: 40px auto 0;
+  margin: 40px auto;
   padding: 25px 145px;
   border-radius: 10px;
   background: ${B01};

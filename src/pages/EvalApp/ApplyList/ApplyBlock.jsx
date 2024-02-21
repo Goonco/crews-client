@@ -1,23 +1,12 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import useApplicantList from '../hooks/useApplicantList';
-import { useNavigate } from 'react-router-dom';
 
 import { BK02, G05, G02, G03, B02, B04 } from 'style/palette';
 
 import { Flex, Text, Button } from 'components/atoms';
-import EvaluationTable from './EvaluationTable';
 
 const ApplyBlock = ({ applicantInfo }) => {
-  const {
-    studentId,
-    name,
-    major,
-    selected,
-    averageScore,
-    percentage,
-    evaluation,
-  } = { ...applicantInfo };
+  const { studentId, name, major, selected } = { ...applicantInfo };
 
   const { selectApplicant, detailedApplicant, detailApplicant } =
     useApplicantList();
@@ -36,11 +25,11 @@ const ApplyBlock = ({ applicantInfo }) => {
   return (
     <ApplyBlockContainer selectedBlock={selected} onClick={handleDetail}>
       <UserInfoSection>
-        <Flex direction="column" gap={2} align="start">
-          <Text size="20px" weight={700} color={BK02} children={studentId} />
-          <Text size="20px" weight={700} color={BK02} children={name} />
+        <Flex className="fixedWidth" direction="column" gap={2} align="start">
+          <Text size="17px" weight={700} color={BK02} children={studentId} />
+          <Text size="17px" weight={700} color={BK02} children={name} />
           <Text
-            size="14px"
+            size="13px"
             weight={400}
             color={G05}
             lineHeight="160%"
@@ -57,14 +46,9 @@ const ApplyBlock = ({ applicantInfo }) => {
       {isDetailed ? (
         <>
           <HR />
-          <EvaluationTable
-            averageScore={averageScore}
-            percentage={percentage}
-            evaluation={evaluation}
-          />
           <Button
             width="100%"
-            height="50px"
+            height="40px"
             size="18px"
             children="지원서 확인하기"
           />
@@ -77,12 +61,21 @@ const ApplyBlock = ({ applicantInfo }) => {
 const ApplyBlockContainer = styled.div`
   border: 1px solid ${G02};
   border-radius: 10px;
-  width: 260px;
+
+  width: 230px;
   height: fit-content;
   padding: 20px;
 
   background-color: ${({ selectedBlock }) => (selectedBlock ? B02 : 'inherit')};
   cursor: pointer;
+`;
+
+const UserInfoSection = styled.div`
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const HR = styled.span`
@@ -111,13 +104,6 @@ const CheckApplyBlockButton = styled.button`
     border-radius: 999px;
   }`
       : ''}
-`;
-
-const UserInfoSection = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 `;
 
 export default ApplyBlock;

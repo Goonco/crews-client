@@ -2,7 +2,6 @@ import { EvaluationPageWrapper, EvaluationContentContainer } from 'pages';
 import FormSection from './FormSection';
 import AssessSection from './AssessSection';
 import EvaluateDetailHeader from './EvaluateDetailHeader';
-import ConfrimBar from 'pages/EvalApp/ConfirmBar';
 import { Flex } from 'components/atoms';
 
 export const EvaluateDetailPage = () => {
@@ -16,7 +15,7 @@ export const EvaluateDetailPage = () => {
         </Flex>
       </EvaluationContentContainer>
 
-      <ConfrimBar />
+      {/* <ConfrimBar /> */}
     </EvaluationPageWrapper>
   );
 };

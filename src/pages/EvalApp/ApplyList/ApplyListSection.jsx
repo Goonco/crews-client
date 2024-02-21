@@ -13,12 +13,9 @@ const polishApplicantList = (applicantList) => {
   let polishedApplicantList = [];
   for (let i = 0; ; i += 4) {
     let left = applicantList.length - i + 1;
-    if (left > 4) {
-      polishedApplicantList.push(applicantList.slice(i, i + 4));
-    } else {
-      let leftList = applicantList.slice(i);
-      for (let j = 0; j < 4 - left + 1; j++) leftList.push(false);
-      polishedApplicantList.push(leftList);
+    if (left > 4) polishedApplicantList.push(applicantList.slice(i, i + 4));
+    else {
+      polishedApplicantList.push(applicantList.slice(i));
       break;
     }
   }
@@ -38,20 +35,19 @@ const ApplyListSection = () => {
         color={B05}
         children={` ${applicantList.length}`}
       />
-      <SortMenu>
+      {/* <SortMenu>
         <SortOption>
           <Text size="18px" weight={400} children="점수순" />
         </SortOption>
         <FontAwesomeIcon icon={faAngleDown} />
         {/* <SortOption>학번순</SortOption>
-        <SortOption>가나다순</SortOption> */}
-      </SortMenu>
+        <SortOption>가나다순</SortOption>
+      </SortMenu> */}
       <ApplyBlockList>
         {polishedList.map((innerList) => (
           <Row key={crypto.randomUUID()}>
             {innerList.map((it) => {
-              if (!it) return <EmptyBlock key={-1} />;
-              else return <ApplyBlock key={it.studentId} applicantInfo={it} />;
+              return <ApplyBlock key={it.studentId} applicantInfo={it} />;
             })}
           </Row>
         ))}
@@ -61,22 +57,19 @@ const ApplyListSection = () => {
 };
 
 const ApplyListSectionWrapper = styled.section`
-  margin-bottom: 180px;
+  margin-bottom: 50px;
 `;
 
 const ApplyBlockList = styled.div`
   display: flex;
+  margin-top: 40px;
   flex-direction: column;
   gap: 25px;
 `;
 
 const Row = styled.div`
   display: flex;
-  justify-content: space-between;
-`;
-
-const EmptyBlock = styled.div`
-  width: 260px;
+  gap: 40px;
 `;
 
 const SortMenu = styled.ul`
