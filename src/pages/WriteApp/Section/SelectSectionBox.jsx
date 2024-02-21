@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import { sectionDataAtom } from '../hooks/WriteFormAtom';
+import { applySectionAtom } from '../hooks/WriteAppAtom';
 import { useState } from 'react';
 
 // Imported Functions & Datas
@@ -11,7 +11,7 @@ import SectionBox from './SectionBox';
 import { Text } from 'components/atoms';
 
 const SelectSectionBox = () => {
-  const sectionData = useRecoilValue(sectionDataAtom);
+  const sectionData = useRecoilValue(applySectionAtom);
   const sectionNames = sectionData
     .map((it) => it.sectionName)
     .filter((it) => it !== '공통');

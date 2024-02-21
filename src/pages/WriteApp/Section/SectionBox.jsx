@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 
 // Imported Functions & Datas
 import { B01, B04 } from 'style/palette';
-import { questionDataAtom } from '../hooks/WriteFormAtom';
+import { applyQuestionAtom } from '../hooks/WriteAppAtom';
 
 // Imported Components
 import SectionHeader from './SectionHeader';
@@ -11,7 +11,7 @@ import QuestionBox from '../Question/QuestionBox';
 
 const SectionBox = ({ sectionData, idx }) => {
   const { id, sectionName, sectionDescription } = { ...sectionData };
-  const questionData = useRecoilValue(questionDataAtom);
+  const questionData = useRecoilValue(applyQuestionAtom);
 
   return (
     <SectionContainer>

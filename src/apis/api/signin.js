@@ -22,4 +22,15 @@ export const signInApi = {
     );
     return response;
   },
+
+  memberSignIn: async (memberPW) => {
+    const response = await baseInstance.post(
+      signInApi.endpoint.memberSignIn,
+      JSON.stringify({ memberPW }),
+      {
+        headers: { ...signInApi.headers },
+      }
+    );
+    return response;
+  },
 };

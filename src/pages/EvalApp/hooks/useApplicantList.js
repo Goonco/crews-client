@@ -5,9 +5,6 @@ import {
   detailedApplicantAtom,
 } from './evaluateFormAtom';
 
-import { useEvaluateformApi } from 'apis/api/evaluateform';
-import { useState } from 'react';
-
 export const useMyApplicantList = () => {
   return useRecoilState(applicantListAtom);
 };
@@ -18,18 +15,6 @@ const useApplicantList = () => {
   const [detailedApplicant, setDetailedApplicant] = useRecoilState(
     detailedApplicantAtom
   );
-  const [loading, setLoading] = useState(true);
-
-  const { getApplicationList } = useEvaluateformApi();
-
-  const fetchApplicantList = async (formId) => {
-    try {
-      setApplicationList((await getApplicationList(formId)).data);
-      setLoading(false);
-    } catch (e) {
-      console.log(`[Error catched by fetchApplicantList]\n\n${e}`);
-    }
-  };
 
   const selectApplicant = (studentId) => {
     const newApplicantList = applicantList.map((applicant) => {
@@ -51,8 +36,6 @@ const useApplicantList = () => {
   return {
     applicantList,
     selectedApplicantList,
-    fetchApplicantList,
-    loading,
     selectApplicant,
     detailedApplicant,
     detailApplicant,

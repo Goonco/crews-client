@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { LeaderSignIn, MemberSignIn, WriteFormPage, NotFoundPage } from 'pages';
+import { LeaderSignIn, MemberSignIn, WriteApp, NotFoundPage } from 'pages';
 import { RequireAuth, ApplicationByStatus } from 'components/templates';
 
 export const ROLES = {
@@ -13,10 +13,10 @@ export const ROUTES = {
     id ? `/recruitment/${id}` : '/recruitment/:recruitmentId',
   APPLICATION: (id) =>
     id ? `/application/${id}` : '/application/:applicationId',
-  APPLY: (recruitmentId, memberId) =>
-    recruitmentId
-      ? `/apply/${recruitmentId}/${memberId}`
-      : '/apply/:recruitmentId/:memberId',
+  APPLY: (applicationId, memberId) =>
+    applicationId
+      ? `/apply/${applicationId}/${memberId}`
+      : '/apply/:applicationId/:memberId',
 };
 
 const Router = () => {
@@ -49,7 +49,7 @@ const Router = () => {
           />
         }
       >
-        <Route path={ROUTES.APPLY()} element={<WriteFormPage />} />
+        <Route path={ROUTES.APPLY()} element={<WriteApp />} />
       </Route>
 
       {/* ************** Catch All */}
