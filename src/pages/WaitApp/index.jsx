@@ -6,21 +6,16 @@ import DeadlineSection from './DeadlineSection';
 import { Button } from 'components/atoms';
 
 export const WaitApp = () => {
+  const handleClick = () => {
+    alert('마감 기간이 1일 연장됩니다. 마감기간은 되돌릴 수 없습니다. 🧐');
+  };
+
   return (
     <WaitAppWrapper>
       <WaitAppContainer>
         <ApplicantSection />
         <DeadlineSection />
-
-        <Button
-          width="200px"
-          height="50px"
-          onClick={() =>
-            alert(
-              '마감 기간이 1일 연장됩니다. 마감기간은 되돌릴 수 없습니다. 🧐'
-            )
-          }
-        >
+        <Button width="200px" height="50px" onClick={handleClick}>
           마감기간 연장하기
         </Button>
       </WaitAppContainer>

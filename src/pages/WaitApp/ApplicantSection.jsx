@@ -12,7 +12,7 @@ const ApplicantSection = () => {
     <ApplicantContainer>
       <SmallText color={BK02} children="현재까지" />
       <BigText color={B05} children={appliedNum} />
-      <SmallText color={B05} children="명이 지원했어요 😏" />
+      <SmallText color={B05} children="명이 지원했어요 🤗" />
     </ApplicantContainer>
   );
 };

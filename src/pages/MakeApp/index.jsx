@@ -56,8 +56,12 @@ export const MakeApp = () => {
   };
 
   useEffect(() => {
-    fetchSectionData();
-    fetchQuestionData();
+    const fetchData = async () => {
+      await fetchSectionData();
+      await fetchQuestionData();
+    };
+
+    fetchData();
   }, []);
 
   const addSection = () => {

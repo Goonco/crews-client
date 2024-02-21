@@ -1,31 +1,7 @@
-export const DUMMY_RECRUITMENT_NAME = (recruitmentID) => {
-  let recruitmentName;
-  switch (recruitmentID) {
-    case '1':
-      recruitmentName =
-        '멋쟁이 사자처럼 서강대에서 19기 아기사자를 모집합니다!';
-      break;
-    case '2':
-      recruitmentName = '우아한테크코스 5기 모집';
-      break;
-    default:
-      return false;
-  }
-
-  return {
-    recruitmentName,
-  };
-};
-
-export const DUMMY_APPLICANT_LIST = (recruitmentId) => {
-  switch (recruitmentId) {
-    case '1':
-      return dummy1;
-    case '2':
-      return dummy2;
-    default:
-      return false;
-  }
+export const DUMMY_APPLICANT_LIST = (applicationId) => {
+  if (applicationId === 'L126ZC35K2') return dummy1;
+  else if (applicationId === 'L251DKE3F3') return dummy2;
+  else return false;
 };
 
 const dummy1 = [

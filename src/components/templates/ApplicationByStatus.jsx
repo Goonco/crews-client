@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import { MakeApp, LoadingPage, WaitApp } from 'pages';
+import { MakeApp, WaitApp, EvalApp, LoadingPage } from 'pages';
 
 const STATUS = {
+  default: 'default',
   makeApp: 'make',
   waitApp: 'wait',
   evalApp: 'eval',
@@ -11,10 +12,10 @@ const STATUS = {
 export const ApplicationByStatus = () => {
   // 여기서 Authentication 잡아야할 거 같은데??/
 
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(STATUS.default);
 
   useEffect(() => {
-    setStatus(STATUS.waitApp);
+    setStatus(STATUS.evalApp);
   }, []);
 
   switch (status) {
@@ -22,6 +23,8 @@ export const ApplicationByStatus = () => {
       return <MakeApp />;
     case STATUS.waitApp:
       return <WaitApp />;
+    case STATUS.evalApp:
+      return <EvalApp />;
     default:
       return <LoadingPage />;
   }

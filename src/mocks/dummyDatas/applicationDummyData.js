@@ -43,6 +43,12 @@ export const DEFAULT_QUESTION_DATA = [
   }),
 ];
 
+export const DUMMY_APPLICATION_NAME = (applicationId) => {
+  if (applicationId === 'L126ZC35K2') return 'Crews 1기 기획진 모집';
+  else if (applicationId === 'L251DKE3F3') return '멋쟁이사자처럼 15기 FE 모집';
+  else return false;
+};
+
 export const DUMMY_SECTION_DATA = (applicationId) => {
   if (applicationId === 'L126ZC35K2')
     return [

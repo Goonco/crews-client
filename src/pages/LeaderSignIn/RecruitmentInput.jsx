@@ -47,8 +47,7 @@ const RecruitmentInput = () => {
     navigate(ROUTES.SIGNINMEMBER(input));
   };
 
-  const inputStatus = (key) =>
-    errorMsg ? 'error' : focus ? 'active' : 'inactive';
+  const inputStatus = errorMsg ? 'error' : focus ? 'active' : 'inactive';
 
   return (
     <InputContainer onSubmit={handleSubmit}>
@@ -57,7 +56,7 @@ const RecruitmentInput = () => {
         <PositioningButton>
           <Input
             refer={idRef}
-            status={inputStatus('id')}
+            status={inputStatus}
             placeholder="모집공고 코드"
             width="100%"
             height="55px"

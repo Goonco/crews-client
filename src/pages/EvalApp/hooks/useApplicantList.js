@@ -8,6 +8,10 @@ import {
 import { useEvaluateformApi } from 'apis/api/evaluateform';
 import { useState } from 'react';
 
+export const useMyApplicantList = () => {
+  return useRecoilState(applicantListAtom);
+};
+
 const useApplicantList = () => {
   const [applicantList, setApplicationList] = useRecoilState(applicantListAtom);
   const selectedApplicantList = useRecoilValue(applicantListSelector);

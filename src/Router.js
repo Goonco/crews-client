@@ -4,7 +4,7 @@ import {
   MemberSignIn,
   MakeApp,
   WriteFormPage,
-  EvaluateFormPage,
+  EvalApp,
   EvaluateDetailPage,
   NotFoundPage,
 } from 'pages';

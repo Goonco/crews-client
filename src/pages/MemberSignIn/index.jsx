@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { signInApi } from 'apis/api';
+import { applicationApi } from 'apis/api';
 
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
@@ -17,9 +17,9 @@ export const MemberSignIn = () => {
 
   const fetchRecruitmentName = async () => {
     try {
-      const response = await signInApi.getRecruitmentName(recruitmentId);
-      const { recruitmentName } = { ...response.data };
-      setCrewName(recruitmentName);
+      const response = await applicationApi.getApplicationName(recruitmentId);
+      const { applicationName } = { ...response.data };
+      setCrewName(applicationName);
     } catch (e) {
       if (e.response.status === 404) {
         const redirectUrl = '/notfound?errormsg=존재하지 않는 모집 공고입니다.';

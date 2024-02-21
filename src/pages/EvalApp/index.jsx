@@ -2,52 +2,70 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import useApplicantList from './hooks/useApplicantList';
+import { useMyApplicantList } from './hooks/useApplicantList';
 
 import EvaluateSummarySection from './EvaluateSummarySection';
 import ApplyListSection from './ApplyList/ApplyListSection';
 import ConfirmBar from './ConfirmBar';
 
 import { LoadingPage } from 'pages';
-import { useEvaluateformApi } from 'apis/api';
+import { applicationApi } from 'apis/api';
+import useAuthInstance from 'apis/utils/useAuthInstance';
 
-export const EvaluateFormPage = () => {
-  const { formid } = useParams();
-  const { fetchApplicantList, loading } = useApplicantList();
+export const EvalApp = () => {
+  const { applicationId } = useParams();
+  const authInstance = useAuthInstance();
 
-  const [loading2, setLoading2] = useState(true);
-  const [recruitmentName, setRecruitmentName] = useState('');
-  const { getRecruitmentName } = useEvaluateformApi();
+  const [loading, setLoading] = useState(2);
+  const [applicationName, setApplicationName] = useState('');
+  const [_, setApplicationList] = useMyApplicantList();
 
-  const fetchRecruitmentName = async () => {
+  const fetchApplicationName = async () => {
     try {
-      setRecruitmentName(
-        (await getRecruitmentName(formid)).data.recruitmentName
-      );
-      setLoading2(false);
+      const response = await applicationApi.getApplicationName(applicationId);
+      const { applicationName } = { ...response.data };
+      setApplicationName(applicationName);
+      setLoading((prev) => prev - 1);
     } catch (e) {
-      console.log(`${e} : fetchRecruitmentName API Error`);
+      console.log(`${e} : fetchApplicationName API Error`);
+    }
+  };
+
+  const fetchApplicants = async () => {
+    try {
+      const response = await applicationApi.getApplicants(
+        authInstance,
+        applicationId
+      );
+
+      const applicants = response.data;
+      setApplicationList(applicants);
+      setLoading((prev) => prev - 1);
+    } catch (e) {
+      console.log(`${e} : fetchApplicants API Error`);
     }
   };
 
   useEffect(() => {
-    fetchApplicantList(formid);
-    fetchRecruitmentName(formid);
+    const fetchData = async () => {
+      await fetchApplicationName();
+      await fetchApplicants();
+    };
+    fetchData();
   }, []);
 
-  if (loading || loading2) return <LoadingPage />;
-  else {
+  if (!loading)
     return (
       <EvaluationPageWrapper>
         <EvaluationContentContainer>
-          <EvaluateSummarySection recruitmentName={recruitmentName} />
+          <EvaluateSummarySection recruitmentName={applicationName} />
           <ApplyListSection />
         </EvaluationContentContainer>
 
         <ConfirmBar />
       </EvaluationPageWrapper>
     );
-  }
+  else return <LoadingPage />;
 };
 
 export const EvaluationPageWrapper = styled.div`

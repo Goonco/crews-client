@@ -67,23 +67,4 @@ export const mockedSignInApis = [
       );
     } else return new HttpResponse(null, { status: 404 });
   }),
-
-  // getRecruitmentName
-  http.get(
-    base(signInApi.endpoint.getRecruitmentName()),
-    async ({ params }) => {
-      switch (params?.recruitmentId) {
-        case 'ABCD123':
-          return HttpResponse.json({
-            recruitmentName: 'Crews 1기 기획진 모집',
-          });
-        case 'QWER':
-          return HttpResponse.json({
-            recruitmentName: '멋쟁이사자처럼 15기 FE 모집',
-          });
-        default:
-          return new HttpResponse('No such recruitment id', { status: 404 });
-      }
-    }
-  ),
 ];

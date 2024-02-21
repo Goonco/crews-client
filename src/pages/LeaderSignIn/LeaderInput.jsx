@@ -70,8 +70,7 @@ const LeaderInput = () => {
     }
   };
 
-  const inputStatus = (key) =>
-    errorMsg ? 'error' : focus ? 'active' : 'inactive';
+  const inputStatus = errorMsg ? 'error' : focus ? 'active' : 'inactive';
 
   return (
     <InputContainer onSubmit={handleSubmit}>
@@ -81,7 +80,7 @@ const LeaderInput = () => {
           <Input
             refer={pwRef}
             type={showPW ? 'text' : 'password'}
-            status={inputStatus('pw')}
+            status={inputStatus}
             placeholder="모집공고 비밀번호"
             width="100%"
             height="55px"
