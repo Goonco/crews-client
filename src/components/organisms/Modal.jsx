@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const Modal = (props) => {
-  const { isOpen, toggleOpen, children } = props;
-
+export const Modal = ({ isOpen, toggleOpen, children }) => {
   const preventBubbling = (e) => {
     if (e.target === e.currentTarget) toggleOpen();
   };

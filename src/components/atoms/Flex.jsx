@@ -9,6 +9,7 @@ export const Flex = ({
   align = 'center',
   gap = 0,
   wrap = 'no-wrap',
+  className,
 }) => {
   return (
     <FlexBase
@@ -19,6 +20,7 @@ export const Flex = ({
       gap={gap}
       width={width}
       wrap={wrap}
+      className={className}
     >
       {children}
     </FlexBase>

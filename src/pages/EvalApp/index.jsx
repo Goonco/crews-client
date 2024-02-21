@@ -67,13 +67,12 @@ export const EvalApp = () => {
           <EvaluateSummarySection recruitmentName={applicationName} />
           <ApplyListSection />
           <Button
-            className="alignCenter"
+            className="positionButton"
             width="230px"
             height="50px"
             onClick={handleClick}
-          >
-            지원서 평가 완료
-          </Button>
+            children="지원서 평가 완료"
+          />
         </EvaluationContentContainer>
       </EvaluationPageWrapper>
     );
@@ -88,7 +87,9 @@ export const EvaluationContentContainer = styled.div`
   width: fit-content;
   margin: 0 auto;
 
-  .alignCenter {
-    margin: 0 auto 50px;
+  .positionButton {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
   }
 `;

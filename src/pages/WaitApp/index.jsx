@@ -4,10 +4,20 @@ import ApplicantSection from './ApplicantSection';
 import DeadlineSection from './DeadlineSection';
 
 import { Button } from 'components/atoms';
+import { Modal, useModal } from 'components/organisms';
+import { Confirm } from 'components/molecules';
+
+const confirmMsg = [
+  '마감 기간 연장 시',
+  '다시 되돌릴 수 없습니다 😥',
+  ' 그래도 연장하시겠습니까?',
+];
 
 export const WaitApp = () => {
+  const [isOpen, toggleOpen] = useModal();
+
   const handleClick = () => {
-    alert('마감 기간이 1일 연장됩니다. 마감기간은 되돌릴 수 없습니다. 🧐');
+    toggleOpen();
   };
 
   return (
@@ -19,6 +29,10 @@ export const WaitApp = () => {
           마감기간 연장하기
         </Button>
       </WaitAppContainer>
+
+      <Modal isOpen={isOpen} toggleOpen={toggleOpen}>
+        <Confirm msgs={confirmMsg} />
+      </Modal>
     </WaitAppWrapper>
   );
 };

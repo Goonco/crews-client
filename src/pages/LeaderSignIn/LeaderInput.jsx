@@ -64,7 +64,7 @@ const LeaderInput = () => {
       setInput('');
       navigate(ROUTES.APPLICATION(response.data.id));
     } catch (e) {
-      if (e.response.status === 404) {
+      if (e.response?.status === 404) {
         setErrorMsg('비밀번호를 다시 확인해주세요 👽');
       } else setErrorMsg('로그인 실패 😡');
     }

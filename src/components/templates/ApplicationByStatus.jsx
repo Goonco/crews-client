@@ -15,7 +15,7 @@ export const ApplicationByStatus = () => {
   const [status, setStatus] = useState(STATUS.default);
 
   useEffect(() => {
-    setStatus(STATUS.evalApp);
+    setStatus(STATUS.waitApp);
   }, []);
 
   switch (status) {

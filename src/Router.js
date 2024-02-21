@@ -1,13 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import {
-  LeaderSignIn,
-  MemberSignIn,
-  MakeApp,
-  WriteFormPage,
-  EvalApp,
-  EvaluateDetailPage,
-  NotFoundPage,
-} from 'pages';
+import { LeaderSignIn, MemberSignIn, WriteFormPage, NotFoundPage } from 'pages';
 import { RequireAuth, ApplicationByStatus } from 'components/templates';
 
 export const ROLES = {
