@@ -20,18 +20,19 @@ export const WriteApp = () => {
   const { applicationId, memberId } = useParams();
   const authInstance = useAuthInstance();
 
-  const [sectionData, setSectionData] = useApplySection(false);
-  const [questionData, setQuestionData] = useApplyQuestion(false);
+  const [loading, setLoading] = useState(2);
+  const [sectionData, setSectionData] = useApplySection();
+  const [_, setQuestionData] = useApplyQuestion();
 
   const fetchSectionData = async () => {
     try {
-      console.log(applicationId);
       const response = await applicationApi.getSectionData(
         authInstance,
         applicationId
       );
 
       setSectionData(response.data);
+      setLoading((prev) => prev - 1);
     } catch (e) {
       console.log(`[Error : fetchApplySectionData error] : ${e}`);
     }
@@ -45,6 +46,7 @@ export const WriteApp = () => {
       );
 
       setQuestionData(response.data);
+      setLoading((prev) => prev - 1);
     } catch (e) {
       console.log(
         `[Error : fetchApplyQuestionData error] : ${e.response?.status} - ${e.response?.statusText}`
@@ -61,7 +63,7 @@ export const WriteApp = () => {
     fetchData();
   }, []);
 
-  if (sectionData && questionData) {
+  if (!loading) {
     return (
       <WriteFormWrapper>
         <WriteFormContainer>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Text, Flex } from 'components/atoms';
 import { BK02, W01, B05 } from 'style/palette';
 
-export const Confirm = ({ msgs, handleConfrim }) => {
+export const Confirm = ({ msgs, handleConfirm }) => {
   return (
     <ConfirmContainer>
       <Flex direction="column" gap={10}>
@@ -13,14 +13,8 @@ export const Confirm = ({ msgs, handleConfrim }) => {
           </Text>
         ))}
       </Flex>
-      <button>
-        <Text
-          color={B05}
-          size="20px"
-          weight={600}
-          onClick={handleConfrim}
-          children="확인"
-        />
+      <button onClick={handleConfirm}>
+        <Text color={B05} size="20px" weight={600} children="확인" />
       </button>
     </ConfirmContainer>
   );

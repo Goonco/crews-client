@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
-import { applySectionAtom } from '../hooks/WriteAppAtom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useFilteredApplySection } from '../hooks/useApplySectoin';
 
 // Imported Functions & Datas
 import { W01, B04, B03 } from 'style/palette';
@@ -9,42 +8,82 @@ import { W01, B04, B03 } from 'style/palette';
 // Imported Components
 import SectionBox from './SectionBox';
 import { Text } from 'components/atoms';
+import { LoadingPage } from 'pages/Others';
+import { Modal, useModal } from 'components/organisms';
+import { Confirm } from 'components/molecules';
 
 const SelectSectionBox = () => {
-  const sectionData = useRecoilValue(applySectionAtom);
-  const sectionNames = sectionData
-    .map((it) => it.sectionName)
-    .filter((it) => it !== '공통');
+  const [filteredSectionData, _] = useFilteredApplySection();
+  const [selectedSectionName, setSelectedSectionName] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const [selectedSectionName, setSelectedSectionName] = useState(
-    sectionNames[0]
-  );
+  useEffect(() => {
+    // recoilstate의 값을 default 값으로 사용 못함
+    setSelectedSectionName(filteredSectionData[0].sectionName);
+    setLoading(false);
+  }, [filteredSectionData]);
 
-  const changeSelectedSectionName = (e) => {
-    if (!window.confirm('섹션 변경 시 기입했던 내용이 사라집니다.')) return;
-    setSelectedSectionName(e.currentTarget.name);
+  const selectedSectionData = filteredSectionData.filter(
+    (it) => it.sectionName === selectedSectionName
+  )[0];
+
+  const [isOpen, toggleOpen] = useModal();
+
+  const [deleteTarget, setDeleteTarget] = useState();
+  const handleClick = (e) => {
+    toggleOpen();
+    setDeleteTarget(e.currentTarget.name);
   };
 
-  return (
-    <SelectSectionContainer>
-      <SelectSection>
-        {sectionNames.map((it, idx) => (
-          <SelectSectionButton
-            name={it}
-            onClick={changeSelectedSectionName}
-            className={it === selectedSectionName ? 'selectedSection' : ''}
-          >
-            <Text color={W01} size="16px" weight={700} children={it} />
-          </SelectSectionButton>
-        ))}
-      </SelectSection>
-      {sectionData.map((it, idx) => {
-        if (it.sectionName === selectedSectionName)
-          return <SectionBox key={idx} sectionData={it} idx={idx} />;
-      })}
-    </SelectSectionContainer>
-  );
+  const handleConfirm = () => {
+    console.log('clicked');
+    setSelectedSectionName(deleteTarget);
+    toggleOpen();
+  };
+
+  if (!loading) {
+    return (
+      <>
+        <SelectSectionContainer>
+          <SelectSection>
+            {filteredSectionData.map((it, idx) => (
+              <SelectSectionButton
+                key={idx}
+                name={it.sectionName}
+                onClick={handleClick}
+                className={
+                  it.sectionName === selectedSectionName
+                    ? 'selectedSection'
+                    : ''
+                }
+              >
+                <Text
+                  color={W01}
+                  size="16px"
+                  weight={700}
+                  children={it.sectionName}
+                />
+              </SelectSectionButton>
+            ))}
+          </SelectSection>
+          <SectionBox
+            sectionData={selectedSectionData}
+            idx={selectedSectionData.id}
+          />
+        </SelectSectionContainer>
+        <Modal isOpen={isOpen} toggleOpen={toggleOpen}>
+          <Confirm msgs={msgs} handleConfirm={handleConfirm} />
+        </Modal>
+      </>
+    );
+  } else return <LoadingPage />;
 };
+
+const msgs = [
+  '섹션 변경 시',
+  '기입 내용이 사라집니다. 😣',
+  '정말 변경하시겠습니까?',
+];
 
 const SelectSectionContainer = styled.div`
   margin-top: 25px;
