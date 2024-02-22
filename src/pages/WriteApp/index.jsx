@@ -22,7 +22,7 @@ export const WriteApp = () => {
 
   const [loading, setLoading] = useState(2);
   const [sectionData, setSectionData] = useApplySection();
-  const [_, setQuestionData] = useApplyQuestion();
+  const [questionData, setQuestionData] = useApplyQuestion();
 
   const fetchSectionData = async () => {
     try {
@@ -70,7 +70,12 @@ export const WriteApp = () => {
           <WriteFormHeader />
 
           <WriteFormContent>
-            <SectionBox key={0} sectionData={sectionData[0]} idx={0} />
+            <SectionBox
+              key={0}
+              sectionData={sectionData[0]}
+              questionData={questionData}
+              idx={0}
+            />
             <Text
               children="지원항목은 선택한 하나의 항목에만 응답할 수 있습니다."
               size="20px"

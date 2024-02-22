@@ -1,17 +1,14 @@
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 
 // Imported Functions & Datas
 import { B01, B04 } from 'style/palette';
-import { applyQuestionAtom } from '../hooks/WriteAppAtom';
 
 // Imported Components
 import SectionHeader from './SectionHeader';
 import QuestionBox from '../Question/QuestionBox';
 
-const SectionBox = ({ sectionData, idx }) => {
+const SectionBox = ({ sectionData, questionData, idx }) => {
   const { id, sectionName, sectionDescription } = { ...sectionData };
-  const questionData = useRecoilValue(applyQuestionAtom);
 
   return (
     <SectionContainer>

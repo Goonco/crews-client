@@ -11,9 +11,11 @@ import { Text } from 'components/atoms';
 import { LoadingPage } from 'pages/Others';
 import { Modal, useModal } from 'components/organisms';
 import { Confirm } from 'components/molecules';
+import { useApplyQuestion } from '../hooks/useApplyQuestion';
 
 const SelectSectionBox = () => {
   const [filteredSectionData, _] = useFilteredApplySection();
+  const [questionData, __] = useApplyQuestion();
   const [selectedSectionName, setSelectedSectionName] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -36,7 +38,6 @@ const SelectSectionBox = () => {
   };
 
   const handleConfirm = () => {
-    console.log('clicked');
     setSelectedSectionName(deleteTarget);
     toggleOpen();
   };
@@ -68,6 +69,7 @@ const SelectSectionBox = () => {
           </SelectSection>
           <SectionBox
             sectionData={selectedSectionData}
+            questionData={questionData}
             idx={selectedSectionData.id}
           />
         </SelectSectionContainer>

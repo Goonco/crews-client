@@ -1,18 +1,27 @@
 import styled from 'styled-components';
 
-export const Modal = ({ isOpen, toggleOpen, children }) => {
+export const Modal = ({ isOpen, toggleOpen, children, align = 'center' }) => {
+  const marginTop = align === 'start' ? '100px' : '0';
+
   const preventBubbling = (e) => {
     if (e.target === e.currentTarget) toggleOpen();
   };
 
   return (
-    <OuterDiv className={isOpen ? 'openOuter' : ''} onClick={preventBubbling}>
-      <InnerDiv className={isOpen ? 'openInner' : ''}>{children}</InnerDiv>
+    <OuterDiv
+      align={align}
+      className={isOpen ? 'openOuter' : ''}
+      onClick={preventBubbling}
+    >
+      <InnerDiv marginTop={marginTop} className={isOpen ? 'openInner' : ''}>
+        {children}
+      </InnerDiv>
     </OuterDiv>
   );
 };
 
 const OuterDiv = styled.div`
+  overflow: scroll;
   display: none;
 
   position: fixed;
@@ -25,7 +34,9 @@ const OuterDiv = styled.div`
   z-index: 999;
 
   &.openOuter {
-    display: block;
+    display: flex;
+    align-items: ${({ align }) => align};
+    justify-content: center;
     animation: open-Outer 0.3s;
   }
 
@@ -46,9 +57,7 @@ const InnerDiv = styled.div`
   width: fit-content;
   height: fit-content;
 
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin-top: ${({ marginTop }) => marginTop};
 
   z-index: 999;
 
@@ -60,11 +69,11 @@ const InnerDiv = styled.div`
   @keyframes open-Inner {
     from {
       opacity: 0;
-      transform: translate(-50%, -70%);
+      margin-bottom: -50px;
     }
     to {
       opacity: 1;
-      transform: translate(-50%, -50%);
+      margin-bottom: 0;
     }
   }
 `;
