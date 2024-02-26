@@ -59,4 +59,6 @@ const StyledText = styled.span`
   line-height: ${({ lineHeight }) => lineHeight};
   font-family: ${({ font }) => font};
   cursor: ${({ cursor }) => cursor};
+
+  text-decoration: ${({ underline }) => (underline ? 'underline' : 'none')};
 `;

@@ -3,8 +3,13 @@ import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
     ${reset};
+    *::-webkit-scrollbar{
+        display: none;
+    }
     body * {
         box-sizing: border-box;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
     };
     button {
         padding: 0;

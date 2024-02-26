@@ -31,9 +31,9 @@ const DeadlineSection = () => {
   const timeDiff = new Date(deadline - today);
   const day = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
-  setInterval(() => {
-    setToday(new Date());
-  }, 1000);
+  // setInterval(() => {
+  //   setToday(new Date());
+  // }, 1000);
 
   return (
     <DeadlineContainer>

@@ -12,7 +12,7 @@ import { G06, BK01 } from 'style/palette';
 
 // Components
 import SectionBox from './Section/SectionBox';
-import MakeAppHeader from './MakeFormHeader';
+import MakeAppHeader from './MakeAppHeader';
 import { Button, Text } from 'components/atoms';
 import { LoadingPage } from 'pages/Others';
 

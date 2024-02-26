@@ -1,9 +1,10 @@
+import { useState, useEffect } from 'react';
 import { Outlet, Navigate, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
 import useAuth from 'apis/context/useAuth';
 
 import { UnauthenticatedPage } from 'pages';
-import { Button } from 'components/atoms';
+import { AuthHeader } from 'components/molecules';
+import useMousePosition from 'components/molecules/useMousePosition';
 
 export const RequireAuth = ({ availRole, redirectUrl }) => {
   const { auth } = useAuth();
@@ -22,40 +23,27 @@ export const RequireAuth = ({ availRole, redirectUrl }) => {
   else if (!available) return <UnauthenticatedPage />;
   else if (available)
     return (
-      <LogOutButton>
+      <MousePositionHeader>
+        <AuthHeader />
         <Outlet />
-      </LogOutButton>
+      </MousePositionHeader>
     );
 };
 
-const LogOutButton = () => {
+const MousePositionHeader = () => {
+  const mousePosition = useMousePosition();
+
+  const [showHeader, setShowHeader] = useState(false);
+
+  useEffect(() => {
+    if (mousePosition.y < 150) setShowHeader(true);
+    else setShowHeader(false);
+  }, [mousePosition]);
+
   return (
     <>
-      <HeaderBar>
-        <Button
-          className="positionButton"
-          width="100px"
-          height="30px"
-          // onClick={handleClick}
-          children="로그아웃"
-        />
-      </HeaderBar>
+      <AuthHeader show={showHeader} />
       <Outlet />
     </>
   );
 };
-
-const HeaderBar = styled.div`
-  width: 100%;
-  padding: 20px 20px 0 0;
-
-  button {
-    margin-left: auto;
-  }
-`;
-
-// const FixedButton = styled(Button)`
-//   position: fixed;
-//   top: 50px;
-//   right: 50px;
-// `;

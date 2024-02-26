@@ -6,6 +6,7 @@ import DeadlineSection from './DeadlineSection';
 import { Button } from 'components/atoms';
 import { Modal, useModal } from 'components/organisms';
 import { Confirm } from 'components/molecules';
+import { W01 } from 'style/palette';
 
 const confirmMsg = [
   '마감 기간 연장 시',
@@ -53,5 +54,5 @@ const WaitAppContainer = styled.div`
   align-items: center;
   gap: 100px;
 
-  background-color: #fff;
+  background-color: ${W01};
 `;
