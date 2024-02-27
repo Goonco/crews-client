@@ -31,14 +31,14 @@ export const RequireAuth = ({ availRole, redirectUrl }) => {
 };
 
 const MousePositionHeader = () => {
-  const mousePosition = useMousePosition();
+  // const mousePosition = useMousePosition();
 
-  const [showHeader, setShowHeader] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
 
-  useEffect(() => {
-    if (mousePosition.y < 150) setShowHeader(true);
-    else setShowHeader(false);
-  }, [mousePosition]);
+  // useEffect(() => {
+  //   if (mousePosition.y < 150) setShowHeader(true);
+  //   else setShowHeader(false);
+  // }, [mousePosition]);
 
   return (
     <>
