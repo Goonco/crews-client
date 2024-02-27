@@ -1,5 +1,15 @@
 import { atom } from 'recoil';
 
+export const sectionDataAtom = atom({
+  key: 'sectionData',
+  default: false,
+});
+
+export const questionDataAtom = atom({
+  key: 'questionData',
+  default: false,
+});
+
 export const generateCheckboxQues = ({
   id,
   sectionId,
@@ -30,14 +40,4 @@ export const generateDescriptiveQues = ({
   isMandatory,
   questionType: 'descriptive',
   characterLimit,
-});
-
-export const sectionDataAtom = atom({
-  key: 'sectionData',
-  default: [],
-});
-
-export const questionDataAtom = atom({
-  key: 'questionData',
-  default: [],
 });

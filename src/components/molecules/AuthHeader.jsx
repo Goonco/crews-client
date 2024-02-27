@@ -8,7 +8,7 @@ import { Text } from 'components/atoms';
 import { Modal, useModal } from 'components/organisms';
 import { Confirm } from './Confirm';
 
-export const AuthHeader = ({ show }) => {
+export const AuthHeader = ({ show = true }) => {
   return (
     <HeaderContainer show={show}>
       <Logo>
@@ -23,7 +23,7 @@ export const AuthHeader = ({ show }) => {
 };
 
 const HeaderContainer = styled.div`
-  position: fixed;
+  position: sticky;
   left: 0;
   top: 0;
   z-index: 999;
@@ -33,7 +33,7 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  width: 100%;
+  width: 100vw;
   padding: 10px 20px;
   background-color: ${B02};
 
@@ -45,7 +45,7 @@ const Logo = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 5 px;
+  gap: 6px;
   color: ${B06};
 `;
 

@@ -43,7 +43,7 @@ const QuestionBoxContent = ({ questionData, idx }) => {
 const QuestionBoxContainer = styled.div`
   width: 100%;
   margin-bottom: 20px;
-  padding: 20px;
+  padding: 15px 20px;
   border: 1px solid ${G02};
   border-radius: 0 10px 10px 10px;
 
@@ -57,12 +57,12 @@ const QuestionDescription = styled.input`
   color: ${BK01};
 
   width: 100%;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 17px;
+  font-weight: 600;
   font-family: 'Pretendard-Regular';
 
-  padding-bottom: 16px;
-  border-bottom: 3px solid ${B04};
+  padding-bottom: 10px;
+  border-bottom: 2px solid ${B04};
 
   &::placeholder {
     color: ${BK01};

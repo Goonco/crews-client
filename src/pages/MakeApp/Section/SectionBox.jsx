@@ -25,9 +25,8 @@ const SectionBox = ({ sectionData, idx }) => {
         })}
 
         <QuestionAddButton
-          width="120px"
-          height="50px"
-          fontSize="18px"
+          width="100px"
+          height="40px"
           children="질문 추가"
           onClick={handleAddQuestionClick}
         />
@@ -49,6 +48,7 @@ const SectionContent = styled.div`
 `;
 
 const QuestionAddButton = styled(Button)`
+  margin-left: auto;
   background-color: ${B04};
 `;
 

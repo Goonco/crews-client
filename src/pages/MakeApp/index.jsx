@@ -12,9 +12,10 @@ import { G06, BK01 } from 'style/palette';
 
 // Components
 import SectionBox from './Section/SectionBox';
-import MakeAppHeader from './MakeAppHeader';
+import AppHeader from 'pages/AppHeader';
 import { Button, Text } from 'components/atoms';
 import { LoadingPage } from 'pages/Others';
+import { AuthFooter } from 'components/molecules';
 
 export const MakeApp = () => {
   const { applicationId } = useParams();
@@ -94,41 +95,37 @@ export const MakeApp = () => {
     );
   };
 
-  if (loading !== 0) return <LoadingPage />;
+  if (loading > 0) return <LoadingPage />;
   else
     return (
-      <MakeAppWrapper>
-        <MakeAppContainer onSubmit={handleSubmit}>
-          <MakeAppHeader />
+      <>
+        <MakeAppWrapper>
+          <MakeAppContainer>
+            <AppHeader />
 
-          <MakeAppContent>
-            {sectionData.map((it, idx) => (
-              <SectionBox key={idx} sectionData={it} idx={idx} />
-            ))}
-          </MakeAppContent>
+            <MakeAppContent>
+              {sectionData.map((it, idx) => (
+                <SectionBox key={idx} sectionData={it} idx={idx} />
+              ))}
+            </MakeAppContent>
 
-          <MakeAppFooter>
             <NewSectionButton
               color={G06}
               onClick={addSection}
-              children={
-                <Text
-                  size="20px"
-                  weight="400"
-                  children="새로운 섹션 추가하기"
-                />
-              }
+              children={<Text children="새로운 섹션 추가하기" />}
             />
-
-            <Button
-              status="active"
-              width="392px"
-              height="65px"
-              children="모집 공고 등록하기"
-            />
-          </MakeAppFooter>
-        </MakeAppContainer>
-      </MakeAppWrapper>
+          </MakeAppContainer>
+        </MakeAppWrapper>
+        <AuthFooter>
+          <Button
+            onClick={handleSubmit}
+            status="active"
+            width="200px"
+            height="50px"
+            children="모집 시작하기"
+          />
+        </AuthFooter>
+      </>
     );
 };
 
@@ -140,8 +137,8 @@ const MakeAppWrapper = styled.div`
   text-align: center;
 `;
 
-const MakeAppContainer = styled.form`
-  width: 760px;
+const MakeAppContainer = styled.div`
+  width: 700px;
   margin: 0 auto;
 `;
 
@@ -149,18 +146,15 @@ const MakeAppContent = styled.div`
   margin-bottom: 50px;
 `;
 
-const MakeAppFooter = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  gap: 80px;
-  margin-bottom: 80px;
-`;
-
 const NewSectionButton = styled.button`
-  border-bottom: 1px solid ${({ color }) => color};
+  font-size: 18px;
+  font-weight: 400;
+
+  margin-bottom: 50px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid;
   color: ${G06};
+
   &:hover {
     color: ${BK01};
   }

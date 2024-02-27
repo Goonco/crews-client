@@ -63,11 +63,11 @@ const OptionInput = styled.input`
   }
 `;
 
-const ToggleButtonContainer = styled.div`
+export const ToggleButtonContainer = styled.div`
   display: flex;
   justify-content: right;
   gap: 16px;
-  margin: 16px 0;
+  margin: 16px 0 0;
 `;
 
 const OptionBox = styled.label`
@@ -75,7 +75,7 @@ const OptionBox = styled.label`
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   width: 100%;
   color: ${BK01};
 `;

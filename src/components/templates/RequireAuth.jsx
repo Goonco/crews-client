@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { Outlet, Navigate, useLocation } from 'react-router-dom';
 import useAuth from 'apis/context/useAuth';
@@ -23,10 +24,10 @@ export const RequireAuth = ({ availRole, redirectUrl }) => {
   else if (!available) return <UnauthenticatedPage />;
   else if (available)
     return (
-      <MousePositionHeader>
+      <>
         <AuthHeader />
         <Outlet />
-      </MousePositionHeader>
+      </>
     );
 };
 

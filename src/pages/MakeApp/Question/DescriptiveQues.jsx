@@ -5,6 +5,7 @@ import useQuestion from '../hooks/useQuestion';
 
 import ToggleButton from './ToggleButton';
 import { Text } from 'components/atoms';
+import { ToggleButtonContainer } from './CheckBoxQues';
 
 const DescriptiveQues = ({ questionData, idx }) => {
   const { isMandatory, characterLimit } = { ...questionData };
@@ -35,21 +36,15 @@ const DescriptiveQues = ({ questionData, idx }) => {
   );
 };
 
-const ToggleButtonContainer = styled.div`
-  display: flex;
-  justify-content: right;
-  gap: 16px;
-  margin: 16px 0;
-`;
-
 const NumberInput = styled.input`
-  margin-left: 5px;
+  margin: 0 5px 2px 0;
   width: 40px;
 
   font-size: 14px;
   font-weight: 700;
   font-family: 'Pretendard-Regular';
   text-decoration: underline;
+  text-align: right;
 `;
 
 export default DescriptiveQues;

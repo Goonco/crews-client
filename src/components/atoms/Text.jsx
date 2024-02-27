@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const Text = ({
-  size = 1,
-  weight = 500,
+  size = 'inherit',
+  weight = 'inehrit',
   color = 'inherit',
   children,
   variant,
