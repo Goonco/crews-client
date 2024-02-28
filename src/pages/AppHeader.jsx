@@ -6,7 +6,7 @@ import { Flex, Text } from 'components/atoms';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import { Modal, useModal } from 'components/organisms';
-import { Confirm } from 'components/molecules';
+import { Alert, Confirm } from 'components/molecules';
 
 const descriptions = [
   '모집을 위한 지원서를 생성하는 페이지입니다.',
@@ -16,10 +16,6 @@ const descriptions = [
 const AppHeader = () => {
   const [isOpen, toggleOpen] = useModal();
 
-  const handleClick = () => {
-    toggleOpen();
-  };
-
   return (
     <>
       <AppHeaderContainer>
@@ -27,7 +23,7 @@ const AppHeader = () => {
           <Text children="모집하기" size="28px" weight={700} color={BK02} />
           <QuestionButton>
             <FontAwesomeIcon
-              onClick={handleClick}
+              onClick={toggleOpen}
               icon={faCircleQuestion}
               style={{ color: BK02, fontSize: '23px' }}
             />
@@ -40,12 +36,13 @@ const AppHeader = () => {
           ))}
         </DescriptionContainer>
       </AppHeaderContainer>
-      <Modal isOpen={isOpen} toggleOpen={toggleOpen}>
-        <Confirm
+      <Modal isOpen={isOpen}>
+        <Alert
           msgs={[
             '아직 설명창이 구현되지 않았습니다.',
-            '빠른 시일내에 구현할 수 있도록 하겠습니다. 😨',
+            '빠른 시일내에 구현될 예정입니다. 😨',
           ]}
+          handleAlert={toggleOpen}
         />
       </Modal>
     </>

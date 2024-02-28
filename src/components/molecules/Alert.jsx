@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { Text, Flex } from 'components/atoms';
 import { BK02, W01, B05, G02, G01, B06 } from 'style/palette';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
-export const Confirm = ({ msgs, handleConfirm, handleCancel }) => {
+export const Alert = ({ msgs, handleAlert }) => {
   return (
-    <ConfirmContainer>
-      <ConfirmLogo icon={faCircleExclamation} />
+    <AlertContainer>
+      <AlertLogo icon={faCircleCheck} />
       <Flex direction="column" gap={10}>
         {msgs.map((msg, idx) => (
           <Text key={idx} size="18px" weight={600}>
@@ -17,19 +17,16 @@ export const Confirm = ({ msgs, handleConfirm, handleCancel }) => {
         ))}
       </Flex>
       <ButtonContainer>
-        <StyledButton className="inactive" onClick={handleCancel}>
-          <Text children="취소" />
-        </StyledButton>
-        <StyledButton className="active" onClick={handleConfirm}>
+        <StyledButton className="active" onClick={handleAlert}>
           <Text children="확인" />
         </StyledButton>
       </ButtonContainer>
-    </ConfirmContainer>
+    </AlertContainer>
   );
 };
 
-const ConfirmContainer = styled.div`
-  padding: 15px;
+const AlertContainer = styled.div`
+  padding: 15px 35px;
   border-radius: 10px;
 
   color: ${BK02};
@@ -41,7 +38,7 @@ const ConfirmContainer = styled.div`
   gap: 25px;
 `;
 
-const ConfirmLogo = styled(FontAwesomeIcon)`
+const AlertLogo = styled(FontAwesomeIcon)`
   font-size: 30px;
   color: ${G01};
   margin-top: 20px;

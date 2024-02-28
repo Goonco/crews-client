@@ -53,23 +53,19 @@ const Profile = ({ id = 'L126ZC35K2', status = '모집' }) => {
   const [isOpen, toggleOpen] = useModal();
   const typ = status === '모집' ? '모집' : '지원';
 
-  const handleClick = () => {
-    toggleOpen();
-  };
-
   return (
     <>
       <ProfileContainer>
         <ProfileLogo icon={faCircleUser} />
         <Text size="16px" weight={600}>{`${typ} | ${id}`}</Text>
-        <button onClick={handleClick}>
+        <button onClick={toggleOpen}>
           <Text align="left" size="16px" weight={400} underline={true}>
             로그아웃
           </Text>
         </button>
       </ProfileContainer>
-      <Modal isOpen={isOpen} toggleOpen={toggleOpen}>
-        <Confirm msgs={['로그아웃하시나요? 😢']} />
+      <Modal isOpen={isOpen}>
+        <Confirm msgs={['로그아웃하시나요? 😢']} handleCancel={toggleOpen} />
       </Modal>
     </>
   );

@@ -115,7 +115,7 @@ const LeaderInput = () => {
         <></>
       )}
 
-      <Button type="submit" children="모집하기" width="100%" height="50px" />
+      <Button children="모집하기" width="100%" height="50px" />
     </InputContainer>
   );
 };
