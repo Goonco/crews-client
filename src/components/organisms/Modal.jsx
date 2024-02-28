@@ -1,17 +1,17 @@
 import styled from 'styled-components';
 
-export const Modal = ({ isOpen, children, align = 'center' }) => {
+export const Modal = ({ isOpen, children, toggleOpen, align = 'center' }) => {
   const marginTop = align === 'start' ? '100px' : '0';
 
-  // const preventBubbling = (e) => {
-  //   if (e.target === e.currentTarget) toggleOpen();
-  // };
+  const preventBubbling = (e) => {
+    if (e.target === e.currentTarget) toggleOpen();
+  };
 
   return (
     <OuterDiv
       align={align}
       className={isOpen ? 'openOuter' : ''}
-      // onClick={preventBubbling}
+      onClick={preventBubbling}
     >
       <InnerDiv marginTop={marginTop} className={isOpen ? 'openInner' : ''}>
         {children}
@@ -21,6 +21,7 @@ export const Modal = ({ isOpen, children, align = 'center' }) => {
 };
 
 const OuterDiv = styled.div`
+  overflow: scroll;
   display: none;
 
   position: fixed;

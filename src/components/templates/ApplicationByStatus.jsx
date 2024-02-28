@@ -13,7 +13,7 @@ export const ApplicationByStatus = () => {
   const [status, setStatus] = useState(STATUS.default);
 
   useEffect(() => {
-    setStatus(STATUS.makeApp);
+    setStatus(STATUS.evalApp);
   }, []);
 
   switch (status) {

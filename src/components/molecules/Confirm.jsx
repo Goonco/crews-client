@@ -29,7 +29,7 @@ export const Confirm = ({ msgs, handleConfirm, handleCancel }) => {
 };
 
 const ConfirmContainer = styled.div`
-  padding: 15px;
+  padding: 15px 35px;
   border-radius: 10px;
 
   color: ${BK02};
