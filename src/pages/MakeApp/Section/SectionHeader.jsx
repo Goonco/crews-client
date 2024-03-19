@@ -1,44 +1,38 @@
 import styled from 'styled-components';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useSection from '../hooks/useSection';
+import { useSection } from '../hooks';
 
 // Imported Functions & Datas
 import { B04, W01, B03 } from 'style/palette';
 
-import { Text } from 'components/atoms';
-
-const SectionHeader = ({ sectionData, idx }) => {
+const SectionHeader = ({ sectionData }) => {
   const { sectionName, sectionDescription } = { ...sectionData };
   const { deleteSection, changeSection } = useSection();
-  const handleDeleteButtonClick = () => deleteSection(idx);
-  const handelInputChange = (e) => changeSection(e, idx);
+  const handleDeleteButtonClick = () => deleteSection(sectionData.id);
+  const handelInputChange = (e) => changeSection(e, sectionData.id);
+
+  const readOnly = sectionData.id === 0 ? true : false;
 
   return (
     <SectionHeaderContainer>
-      {idx === 0 ? (
-        <Text
-          align="left"
-          color={W01}
-          size="22px"
-          weight={700}
-          children={sectionName}
-        />
-      ) : (
-        <SectionNameInput
-          name="sectionName"
-          value={sectionName}
-          placeholder="이름없는 섹션"
-          onChange={handelInputChange}
-        />
-      )}
+      <SectionNameInput
+        name="sectionName"
+        value={sectionName}
+        placeholder="섹션명을 적어주세요."
+        onChange={handelInputChange}
+        readOnly={readOnly}
+        autoComplete="off"
+      />
+
       <SectinoDescriptionInput
         name="sectionDescription"
-        placeholder="섹션 설명 쓰기"
+        placeholder="섹션 설명을 적어주세요."
         value={sectionDescription}
         onChange={handelInputChange}
+        autoComplete="off"
       />
-      {idx !== 0 && (
+      {!readOnly && (
         <DeleteSectionButton
           onClick={handleDeleteButtonClick}
           children={<FontAwesomeIcon icon={faXmark} className="fa-xl" />}
@@ -69,6 +63,8 @@ const SectionNameInput = styled.input`
   &::placeholder {
     color: ${B03};
   }
+
+  cursor: ${({ readOnly }) => (readOnly ? 'default' : 'inherit')};
 `;
 
 const SectinoDescriptionInput = styled.input`
@@ -78,7 +74,7 @@ const SectinoDescriptionInput = styled.input`
   font-family: 'Pretendard-Regular';
 
   &::placeholder {
-    color: ${W01};
+    color: ${B03};
     text-decoration: underline;
   }
 `;

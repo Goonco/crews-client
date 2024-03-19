@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useQuestion from '../hooks/useQuestion';
+import { useOption, useQuestion } from '../hooks';
 
 import { BK01, G03, G05 } from 'style/palette';
 import { faXmark, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -8,13 +8,13 @@ import { faXmark, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Text } from 'components/atoms';
 import ToggleButton from './ToggleButton';
 
-const CheckBoxQues = ({ questionData, idx }) => {
-  const { isMandatory, canMultipleCheck, options } = { ...questionData };
+const CheckBoxQues = ({ questionData }) => {
+  const { id, isMandatory, canMultipleCheck, options } = { ...questionData };
 
-  const { addOption, deleteOption, changeQuestion, changeOption } =
-    useQuestion();
-  const handleAddOptionClick = () => addOption(idx);
-  const handleOnClick = (e) => changeQuestion(e, idx);
+  const { changeQuestion } = useQuestion();
+  const { addOption, changeOption, deleteOption } = useOption();
+  const handleAddOptionClick = () => addOption(id);
+  const handleOnClick = (e) => changeQuestion(e, id);
 
   return (
     <>
@@ -22,27 +22,27 @@ const CheckBoxQues = ({ questionData, idx }) => {
         <ToggleButton
           name="isMandatory"
           status={isMandatory}
-          onClick={handleOnClick}
+          onChange={handleOnClick}
           label="응답 필수"
         />
         <ToggleButton
           name="canMultipleCheck"
           status={canMultipleCheck}
-          onClick={handleOnClick}
+          onChange={handleOnClick}
           label="중복 선택 가능"
         />
       </ToggleButtonContainer>
-      {options.map((it, opIdx) => (
-        <OptionBox key={it.id}>
-          <input type="radio" checked={false} />
+      {options.map((op) => (
+        <OptionBox key={op.id}>
+          <input type="radio" defaultChecked={false} />
           <OptionInput
             placeholder="옵션을 작성해주세요."
-            value={it.option}
-            onChange={(e) => changeOption(e, idx, opIdx)}
+            value={op.option}
+            onChange={(e) => changeOption(e, id, op.id)}
           />
           <DeleteOptionButton
             children={<FontAwesomeIcon icon={faXmark} className="fa-xl" />}
-            onClick={() => deleteOption(idx, opIdx)}
+            onClick={() => deleteOption(id, op.id)}
           />
         </OptionBox>
       ))}

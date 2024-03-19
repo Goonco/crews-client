@@ -3,11 +3,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 // Custom Hooks & Functions & Datas
-import { useMySection } from './hooks/useSection';
-import { useMyQuestion } from './hooks/useQuestion';
+import { useSection, useQuestion } from './hooks';
 import { applicationApi } from 'apis/api';
 import useAuthInstance from 'apis/utils/useAuthInstance';
-import { generateRandomString, isUniqueSectionName } from './utils';
 import { G06, BK01 } from 'style/palette';
 
 // Components
@@ -19,10 +17,11 @@ import { AuthFooter } from 'components/molecules';
 
 export const MakeApp = () => {
   const { applicationId } = useParams();
-  const [sectionData, setSectionData] = useMySection();
-  const [questionData, setQuestionData] = useMyQuestion();
-  const [loading, setLoading] = useState(2);
   const authInstance = useAuthInstance();
+
+  const { sectionData, setSectionData, addSection } = useSection();
+  const { questionData, setQuestionData } = useQuestion();
+  const [loading, setLoading] = useState(2);
 
   const fetchSectionData = async () => {
     try {
@@ -35,7 +34,7 @@ export const MakeApp = () => {
       setLoading((prev) => prev - 1);
     } catch (e) {
       console.log(
-        `[Error : fetchSectionData error] : ${e.response.status} - ${e.response.statusText}`
+        `[Error : fetchSectionData error] : ${e.response?.status} - ${e.response?.statusText}`
       );
     }
   };
@@ -65,30 +64,7 @@ export const MakeApp = () => {
     fetchData();
   }, []);
 
-  const addSection = () => {
-    if (sectionData.length >= 5) {
-      alert('섹션은 5개까지만 추가할 수 있습니다.');
-      return;
-    }
-
-    let newName;
-    do {
-      newName = generateRandomString();
-    } while (!isUniqueSectionName(sectionData, newName));
-
-    const newId = sectionData[sectionData.length - 1].id + 1;
-    setSectionData((prev) => [
-      ...prev,
-      {
-        id: newId,
-        sectionName: newName,
-        sectionDescription: '',
-      },
-    ]);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     console.log(
       JSON.stringify(sectionData, null, 2),
       JSON.stringify(questionData, null, 2)
@@ -104,8 +80,8 @@ export const MakeApp = () => {
             <AppHeader />
 
             <MakeAppContent>
-              {sectionData.map((it, idx) => (
-                <SectionBox key={idx} sectionData={it} idx={idx} />
+              {sectionData.map((it) => (
+                <SectionBox key={it.id} sectionData={it} />
               ))}
             </MakeAppContent>
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import useQuestion from '../hooks/useQuestion';
+import { useQuestion } from '../hooks';
 
 import { W01, G02, G06, B05 } from 'style/palette';
 import {
@@ -11,31 +11,35 @@ import {
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 
-const QuestionHeader = ({ questionType, idx }) => {
+const questionTypes = ['checkbox', 'descriptive', 'file'];
+const typeIcons = {
+  checkbox: faCircleCheck,
+  descriptive: faFont,
+  file: faFolder,
+};
+
+const QuestionHeader = ({ questionType, questionId }) => {
   const { changeType, deleteQuestion } = useQuestion();
+
+  const handleClick = (e) => {
+    changeType(questionId, e.currentTarget.name);
+  };
 
   return (
     <QuestionTypeBoxContainer>
+      {questionTypes.map((type) => (
+        <TypeButton
+          key={type}
+          name={type}
+          onClick={handleClick}
+          className={'fa-xl' + (questionType === type ? ' selected' : '')}
+          children={<FontAwesomeIcon icon={typeIcons[type]} />}
+        />
+      ))}
       <TypeButton
-        onClick={() => changeType(idx, 'checkbox')}
-        className={'fa-xl' + (questionType === 'checkbox' ? ' selected' : '')}
-        children={<FontAwesomeIcon icon={faCircleCheck} />}
-      />
-      <TypeButton
-        onClick={() => changeType(idx, 'descriptive')}
-        className={
-          'fa-xl' + (questionType === 'descriptive' ? ' selected' : '')
-        }
-        children={<FontAwesomeIcon icon={faFont} />}
-      />
-      <TypeButton
-        className={'fa-xl' + (questionType === 'file' ? ' selected' : '')}
-        children={<FontAwesomeIcon icon={faFolder} />}
-      />
-      <TypeButton
-        className={'fa-xl'}
+        className="fa-xl"
         children={<FontAwesomeIcon icon={faXmark} />}
-        onClick={() => deleteQuestion(idx)}
+        onClick={() => deleteQuestion(questionId)}
       />
     </QuestionTypeBoxContainer>
   );

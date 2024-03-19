@@ -4,22 +4,24 @@ import {
   generateDescriptiveQues,
 } from './MakeFormAtom';
 import { useRecoilState } from 'recoil';
+import { produce } from 'immer';
 
-const useQuestion = () => {
+export const useQuestion = () => {
   const [questionData, setQuestionData] = useRecoilState(questionDataAtom);
 
-  const changeType = (idxToChange, newQuestionType) => {
-    const newQuestionData = questionData.map((ques, idx) => {
-      if (idx === idxToChange) {
-        if (newQuestionType === 'checkbox')
-          return generateCheckboxQues({ ...ques });
-        if (newQuestionType === 'descriptive')
-          return generateDescriptiveQues({ ...ques });
-      }
-      return ques;
+  const changeType = (questionId, newQuesType) => {
+    const nextState = produce(questionData, (draftState) => {
+      draftState.forEach((ques, idx) => {
+        if (ques.id === questionId) {
+          if (newQuesType === 'checkbox')
+            draftState[idx] = generateCheckboxQues({ ...ques });
+          if (newQuesType === 'descriptive')
+            draftState[idx] = generateDescriptiveQues({ ...ques });
+        }
+      });
     });
 
-    setQuestionData(newQuestionData);
+    setQuestionData(nextState);
   };
 
   const addQuestion = (sectionId) => {
@@ -28,44 +30,41 @@ const useQuestion = () => {
       return;
     }
 
-    let lastId =
-      questionData.length === 0
-        ? 0
-        : questionData[questionData.length - 1].id + 1;
-
-    setQuestionData([
-      ...questionData,
-      {
-        id: lastId,
-        sectionId,
-        questionType: 'checkbox',
-        questionDescription: '',
-        isMandatory: false,
-        canMultipleCheck: false,
-        options: [{ id: 0, option: '' }],
-      },
-    ]);
-  };
-
-  const deleteQuestion = (idxToRemove) => {
-    const newQuestionData = [...questionData];
-    newQuestionData.splice(idxToRemove, 1);
-    setQuestionData(newQuestionData);
-  };
-
-  const changeQuestion = (e, idxToChange) => {
-    const { name, value, checked } = e.target;
-
-    const newQuestionData = questionData.map((ques, idx) => {
-      if (idx === idxToChange) {
-        if (name === 'isMandatory' || name === 'canMultipleCheck')
-          return { ...ques, [name]: checked };
-        else return { ...ques, [name]: value };
-      }
-      return ques;
+    const nextState = produce(questionData, (draftState) => {
+      draftState.push(
+        generateCheckboxQues({
+          id: questionData[questionData.length - 1].id + 1,
+          sectionId,
+        })
+      );
     });
 
-    setQuestionData(newQuestionData);
+    setQuestionData(nextState);
+  };
+
+  const deleteQuestion = (questionId) => {
+    if (questionData.length == 1) {
+      alert('문항이 최소 하나 이상 있어야 합니다');
+      return;
+    }
+
+    setQuestionData(questionData.filter((ques) => ques.id !== questionId));
+  };
+
+  const changeQuestion = (e, questionId) => {
+    const { name, value, checked } = e.target;
+
+    const nextState = produce(questionData, (draftState) => {
+      draftState.forEach((ques, idx) => {
+        if (ques.id === questionId) {
+          if (name === 'isMandatory' || name === 'canMultipleCheck')
+            draftState[idx][name] = checked;
+          else draftState[idx][name] = value;
+        }
+      });
+    });
+
+    setQuestionData(nextState);
   };
 
   const addOption = (idxToAdd) => {
@@ -117,6 +116,7 @@ const useQuestion = () => {
 
   return {
     questionData,
+    setQuestionData,
     changeType,
     addQuestion,
     deleteQuestion,
@@ -126,9 +126,3 @@ const useQuestion = () => {
     changeOption,
   };
 };
-
-export const useMyQuestion = () => {
-  return useRecoilState(questionDataAtom);
-};
-
-export default useQuestion;

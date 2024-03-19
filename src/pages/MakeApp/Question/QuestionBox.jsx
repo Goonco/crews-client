@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import useQuestion from '../hooks/useQuestion';
+import { useQuestion } from '../hooks';
 
 // Imported Functions & Datas
 import { G02, W01, BK01, B04 } from 'style/palette';
@@ -9,14 +9,14 @@ import QuestionHeader from './QuestionHeader';
 import CheckBoxQues from './CheckBoxQues';
 import DescriptiveQues from './DescriptiveQues';
 
-const QuestionBox = ({ questionData, idx }) => {
-  const { questionType, questionDescription } = { ...questionData };
+const QuestionBox = ({ questionData }) => {
+  const { id, questionType, questionDescription } = { ...questionData };
   const { changeQuestion } = useQuestion();
-  const onChangeQuestion = (e) => changeQuestion(e, idx);
+  const onChangeQuestion = (e) => changeQuestion(e, id);
 
   return (
     <>
-      <QuestionHeader questionType={questionType} idx={idx} />
+      <QuestionHeader questionType={questionType} questionId={id} />
       <QuestionBoxContainer>
         <QuestionDescription
           name="questionDescription"
@@ -24,20 +24,14 @@ const QuestionBox = ({ questionData, idx }) => {
           placeholder="질문을 입력해주세요."
           onChange={onChangeQuestion}
         />
-        <QuestionBoxContent questionData={questionData} idx={idx} />
+        {questionType === 'checkbox' ? (
+          <CheckBoxQues questionData={questionData} />
+        ) : questionType === 'descriptive' ? (
+          <DescriptiveQues questionData={questionData} />
+        ) : null}
       </QuestionBoxContainer>
     </>
   );
-};
-
-const QuestionBoxContent = ({ questionData, idx }) => {
-  const { questionType } = { ...questionData };
-
-  if (questionType === 'checkbox')
-    return <CheckBoxQues questionData={questionData} idx={idx} />;
-  else if (questionType === 'descriptive')
-    return <DescriptiveQues questionData={questionData} idx={idx} />;
-  else if (questionType === 'file') return null;
 };
 
 const QuestionBoxContainer = styled.div`

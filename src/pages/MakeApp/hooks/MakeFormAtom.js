@@ -13,8 +13,8 @@ export const questionDataAtom = atom({
 export const generateCheckboxQues = ({
   id,
   sectionId,
-  questionDescription,
-  isMandatory,
+  questionDescription = '',
+  isMandatory = true,
   canMultipleCheck = false,
   options = [{ id: 0, option: '' }],
 }) => ({

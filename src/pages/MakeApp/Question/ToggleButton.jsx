@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { G06, G02, B04, W01 } from 'style/palette';
 import { Text } from 'components/atoms';
 
-const ToggleButton = ({ name, status, onClick, label }) => {
+const ToggleButton = ({ name, status, onChange, label }) => {
   return (
     <LabelBox>
       <Text size="14px" color={G06} children={label} />
@@ -11,7 +11,7 @@ const ToggleButton = ({ name, status, onClick, label }) => {
         name={name}
         type="checkbox"
         checked={status}
-        onChange={onClick}
+        onChange={onChange}
       />
       <ToggleContainer isOn={status}>
         <ToggleCircle isOn={status} />

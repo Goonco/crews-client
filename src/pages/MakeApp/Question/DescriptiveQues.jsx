@@ -1,24 +1,24 @@
 import styled from 'styled-components';
 import { G06 } from 'style/palette';
 
-import useQuestion from '../hooks/useQuestion';
+import { useQuestion } from '../hooks';
 
 import ToggleButton from './ToggleButton';
 import { Text } from 'components/atoms';
 import { ToggleButtonContainer } from './CheckBoxQues';
 
-const DescriptiveQues = ({ questionData, idx }) => {
-  const { isMandatory, characterLimit } = { ...questionData };
+const DescriptiveQues = ({ questionData }) => {
+  const { id, isMandatory, characterLimit } = { ...questionData };
 
   const { changeQuestion } = useQuestion();
-  const handleOnClick = (e) => changeQuestion(e, idx);
+  const handleOnClick = (e) => changeQuestion(e, id);
 
   return (
     <ToggleButtonContainer>
       <ToggleButton
         name="isMandatory"
         status={isMandatory}
-        onClick={handleOnClick}
+        onChange={handleOnClick}
         label="응답 필수"
       />
 

@@ -1,5 +1,6 @@
 import { sectionDataAtom, questionDataAtom } from './MakeFormAtom';
 import { useRecoilState } from 'recoil';
+import { produce } from 'immer';
 
 const generateRandomString = () => {
   const characters = 'ABCDEFHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -17,7 +18,15 @@ const isUniqueSectionName = (sectionList, newName) => {
   return isUnique;
 };
 
-const useSection = () => {
+const generateUniqueName = (sectionData) => {
+  let newName;
+  do {
+    newName = generateRandomString();
+  } while (!isUniqueSectionName(sectionData, newName));
+  return newName;
+};
+
+export const useSection = () => {
   const [sectionData, setSectionData] = useRecoilState(sectionDataAtom);
   const [questionData, setQuestionData] = useRecoilState(questionDataAtom);
 
@@ -27,52 +36,42 @@ const useSection = () => {
       return;
     }
 
-    let newName;
-    do {
-      newName = generateRandomString();
-    } while (!isUniqueSectionName(sectionData, newName));
-
-    const newId = sectionData[sectionData.length - 1].id + 1;
-    setSectionData((prev) => [
-      ...prev,
-      {
-        id: newId,
-        sectionName: newName,
+    const nextState = produce(sectionData, (draftState) => {
+      draftState.push({
+        id: sectionData[sectionData.length - 1].id + 1,
+        sectionName: generateUniqueName(sectionData),
         sectionDescription: '',
-      },
-    ]);
+      });
+    });
+    setSectionData(nextState);
   };
 
-  const deleteSection = (idxToRemove) => {
+  const deleteSection = (sectionId) => {
     if (!window.confirm('섹션 삭제 시 내부의 생성된 질문들이 모두 삭제됩니다.'))
       return;
 
-    // 질문 데이터 삭제
-    const newQuestionData = questionData.filter(
-      (ques) => ques.sectionId !== sectionData[idxToRemove].id
+    setQuestionData(
+      questionData.filter((ques) => ques.sectionId !== sectionId)
     );
-    setQuestionData(newQuestionData);
-
-    // 섹션 데이터 삭제
-    const newSectionData = [...sectionData];
-    newSectionData.splice(idxToRemove, 1);
-    setSectionData(newSectionData);
+    setSectionData(sectionData.filter((section) => section.id !== sectionId));
   };
 
-  const changeSection = (e, idxToChange) => {
+  const changeSection = (e, sectionId) => {
     const { name, value } = e.target;
-    const newSectionData = sectionData.map((section, idx) => {
-      if (idx === idxToChange) return { ...section, [name]: value };
-      return section;
+
+    const nextState = produce(sectionData, (draftState) => {
+      draftState.forEach((section, idx) => {
+        if (section.id === sectionId) draftState[idx][name] = value;
+      });
     });
-    setSectionData(newSectionData);
+    setSectionData(nextState);
   };
 
-  return { sectionData, addSection, deleteSection, changeSection };
+  return {
+    sectionData,
+    setSectionData,
+    addSection,
+    deleteSection,
+    changeSection,
+  };
 };
-
-export const useMySection = () => {
-  return useRecoilState(sectionDataAtom);
-};
-
-export default useSection;
