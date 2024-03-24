@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 import ApplicantSection from './ApplicantSection';
 import DeadlineSection from './DeadlineSection';
+import ClipBoardSection from './ClipBoardSection';
 
 import { Button } from 'components/atoms';
 import { Modal, useModal } from 'components/organisms';
 import { AuthFooter, Confirm } from 'components/molecules';
-import { W01 } from 'style/palette';
 import AppHeader from 'pages/AppHeader';
 
 const confirmMsg = [
@@ -29,6 +29,7 @@ export const WaitApp = () => {
           <AppHeader status="wait" />
 
           <WaitAppContent>
+            <ClipBoardSection />
             <ApplicantSection />
             <DeadlineSection />
           </WaitAppContent>

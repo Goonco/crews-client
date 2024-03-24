@@ -2,30 +2,12 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 import { BK02, B01, B05 } from 'style/palette';
+import { getTime, timeformat } from './util';
 
 import { Text } from 'components/atoms';
 
-const getTime = (befDate) => {
-  const tmpMonth = befDate.getMonth() + 1;
-  const tmpDate = befDate.getDate();
-  const month = tmpMonth % 10 === tmpMonth ? `0${tmpMonth}` : tmpMonth;
-  const date = tmpDate % 10 === tmpDate ? `0${tmpDate}` : tmpDate;
-
-  return month + '-' + date;
-};
-
-const timeformat = (dif) => {
-  const seconds = Math.floor(dif / 1000) % 60;
-  const minutes = Math.floor(dif / (1000 * 60)) % 60;
-  const hours = Math.floor(dif / (1000 * 60 * 60)) % 24;
-  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(
-    2,
-    '0'
-  )}:${String(seconds).padStart(2, '0')}`;
-};
-
 const DeadlineSection = () => {
-  const [deadline, setDeadline] = useState(new Date('2024-03-01T20:00:10'));
+  const [deadline, setDeadline] = useState(new Date('2024-04-01T20:00:00'));
   const [today, setToday] = useState(new Date());
 
   const timeDiff = new Date(deadline - today);
